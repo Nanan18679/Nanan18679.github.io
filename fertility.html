@@ -43,25 +43,124 @@
   <h1>Global Fertility Rate Analysis</h1>
 
   <h2>📌 Project Purpose</h2>
-  <p>[Write your project purpose here...]</p>
+  <p>
+This project analyzes long-term global fertility trends by examining the Total Fertility Rate (TFR), which reflects the average number of children a woman is expected to have. Declining fertility in developed countries and persistently high rates in low-income regions raise critical questions about future population stability, labor force dynamics, and economic growth. Inspired by recent research and global case studies, this study explores the socio-economic drivers behind fertility shifts and their implications for policy and development.
+</p>
 
   <h2>📊 Dataset Overview</h2>
-  <p>[Describe the dataset...]</p>
+  <p>
+The dataset used in this project was sourced from the World Bank and focuses on the Total Fertility Rate (TFR) by country over time. The TFR represents the average number of births per woman and serves as a key demographic indicator for population analysis. This data spans multiple decades and includes global coverage, enabling regional comparisons and long-term trend evaluation. The dataset is publicly available from the World Bank Open Data portal.
+</p>
+<p>
+🔗 Source: <a href="https://databank.worldbank.org/reports.aspx?source=2&series=SP.DYN.TFRT.IN&country" target="_blank">World Bank Data</a>
+</p>
+<h3>🧾 Data Description</h3>
+<p>The image below summarizes key features and sample fields included in the dataset:</p>
+<img src="images/fertility/data_description.png" alt="Data description table for fertility dataset" style="width:100%; max-width:800px; margin-top:10px; border:1px solid #ccc;">
+<h3>📈 Data Visualization</h3>
+<p>The following visualizations provide a comparative view of fertility and population density across regions:</p>
 
+<img src="images/fertility/fertility of regions.png" alt="Fertility rates by region" style="width:100%; max-width:800px; margin: 10px 0; border:1px solid #ccc;">
+
+<img src="images/fertility/density of regions.png" alt="Population density by region" style="width:100%; max-width:800px; margin: 10px 0; border:1px solid #ccc;">
+
+<p>To explore relationships between fertility and influencing factors, correlation matrices are used. Strong correlations are indicated by dark red or blue colors, while weak correlations are shown in lighter tones. These visualizations guide our selection of variables for deeper analysis.</p>
+
+<img src="images/fertility/correlation1.png" alt="Correlation matrix part 1" style="width:100%; max-width:800px; margin: 10px 0; border:1px solid #ccc;">
+
+<img src="images/fertility/correlation2.png" alt="Correlation matrix part 2" style="width:100%; max-width:800px; margin: 10px 0; border:1px solid #ccc;">
+
+<img src="images/fertility/correlation3.png" alt="Correlation matrix part 3" style="width:100%; max-width:800px; margin: 10px 0; border:1px solid #ccc;">
   <h2>🛠️ Methodology</h2>
-  <p>[Explain your approach/methods used...]</p>
+  <p>
+To investigate the socio-economic factors influencing global fertility trends, we applied a two-pronged analytical approach: linear regression and K-Means clustering.
+</p>
 
-  <h2>📌 Summary</h2>
-  <p>[Summarize your findings...]</p>
-
+<h3>1. Linear Regression</h3>
+<p>
+Linear regression was used to analyze how indicators across six thematic categories—Social Norms, Agriculture/Urbanization, Healthcare, Technological Development, Economy, and Education—affect fertility rates. The continuous nature of the Total Fertility Rate (TFR) makes it suitable for regression modeling. Each category was represented by a separate DataFrame, and models were evaluated using R-squared and Mean Squared Error (MSE).
+</p>
+<p>
+Feature selection was implemented using Sequential Forward Selection to avoid overfitting and enhance generalization. Feature scaling was applied with StandardScaler to normalize variables. Notable findings include:
+</p>
+<ul>
+  <li><strong>Social Norms:</strong> High correlation with fertility; adolescent fertility and dependency ratios were key predictors.</li>
+  <li><strong>Agriculture/Urbanization:</strong> Rural population growth positively associated with fertility due to limited access to contraception and education.</li>
+  <li><strong>Healthcare:</strong> Indicators like female life expectancy and crude death rates were strongly tied to fertility outcomes.</li>
+  <li><strong>Technological Development:</strong> Moderately correlated; proxies like telephone subscriptions linked to lower fertility via modernization effects.</li>
+  <li><strong>Economy:</strong> GDP growth showed a positive relationship, while GDP per capita growth had an inverse correlation with fertility trends.</li>
+  <li><strong>Education:</strong> Limited features yielded lower R-squared, though longer primary and secondary education durations showed positive effects on delaying childbirth.</li>
+</ul>
+<h3>2. K-Means Clustering</h3>
+<p>
+K-Means clustering was employed to uncover non-linear groupings of countries based on fertility, GDP per capita, and age dependency ratios. Clusters revealed patterns linking low GDP and high fertility, with high dependency ratios, while higher-income nations clustered with lower fertility rates. This method supported insights from regression and highlighted demographic and economic segmentation across regions.
+</p>
+<p>
+The clustering visualization below displays countries grouped based on GDP per capita and age dependency ratio. Each cluster represents countries with similar economic and demographic traits. The results show that higher GDP per capita is associated with lower fertility rates, while countries with higher dependency ratios generally experience higher fertility. This reinforces the insights obtained from the regression model and emphasizes distinct global fertility dynamics.
+</p>
+<img src="images/fertility/Kmeans.png" alt="KMeans clustering results based on GDP and dependency ratio" style="width:100%; max-width:800px; margin: 10px 0; border:1px solid #ccc;">
   <h2>💡 Insights</h2>
-  <p>[Key insights and takeaways...]</p>
+  <p>
+Our analysis revealed several critical patterns and regional distinctions in global fertility trends:
+</p>
+<ul>
+  <li><strong>Social Norms & Demographics:</strong> Countries with high adolescent fertility and low old-age dependency ratios tended to have significantly higher fertility rates. Cultural expectations and limited access to education or contraception play a strong role here.</li>
+  <li><strong>Urbanization & Infrastructure:</strong> A clear inverse relationship was found between urbanization and fertility rates. Urban environments tend to support delayed childbirth through better access to education, career opportunities, and family planning services.</li>
+  <li><strong>Healthcare & Longevity:</strong> Improved life expectancy for women generally led to lower fertility, reflecting the impact of healthcare access, maternal care, and lower infant mortality on reproductive choices.</li>
+  <li><strong>Technology:</strong> Countries with broader access to telecommunications and digital infrastructure often displayed lower fertility, supporting the hypothesis that modernization promotes reproductive autonomy.</li>
+  <li><strong>Economic Patterns:</strong> Rapid GDP growth correlated with higher fertility in emerging economies, while higher GDP per capita correlated with lower fertility in mature economies, consistent with the demographic-economic paradox.</li>
+  <li><strong>Educational Attainment:</strong> While longer durations of education showed a positive influence on delaying childbirth, our model revealed that education alone had a weaker direct impact on fertility compared to other variables. Nonetheless, its role in shaping long-term trends is undeniable.</li>
+</ul>
+
+<h3>📌 Takeaways</h3>
+<ul>
+  <li>Fertility is a multidimensional phenomenon influenced by demographic, economic, social, and technological factors. No single variable explains it all.</li>
+  <li>Different stages of economic development correspond to distinct fertility patterns—developing countries face challenges from high fertility, while developed nations struggle with aging populations and low fertility rates.</li>
+  <li>Linear regression helped identify the most influential factors quantitatively, while K-Means clustering revealed country groupings with shared fertility profiles.</li>
+  <li>Policy solutions must be context-specific, addressing access to education, reproductive healthcare, family support, and gender equity tailored to regional needs.</li>
+  <li>Future analyses could benefit from including cultural, policy, and qualitative data sources, as well as experimenting with non-linear and ensemble machine learning models.</li>
+</ul>
 
   <h2>🧰 Tech Stack</h2>
-  <p>[Mention libraries, tools, languages...]</p>
+  <ul>
+    <li><strong>Python:</strong> Core programming language used for data cleaning, modeling, and analysis.</li>
+    <li><strong>Pandas:</strong> Managed and transformed tabular data for fertility rates and indicators.</li>
+    <li><strong>NumPy:</strong> Supported numerical operations and matrix handling.</li>
+    <li><strong>Matplotlib & Seaborn:</strong> Created line plots, density plots, correlation heatmaps, and cluster visualizations.</li>
+    <li><strong>Scikit-learn:</strong> Used for:
+      <ul>
+        <li>LinearRegression and KMeans algorithms for modeling and clustering</li>
+        <li>StandardScaler for feature scaling</li>
+        <li>SequentialFeatureSelector for variable selection</li>
+        <li>train_test_split, mean_squared_error, and r2_score for model evaluation</li>
+      </ul>
+    </li>
+    <li><strong>Google Colab:</strong> Cloud-based Jupyter Notebook environment for executing and sharing code.</li>
+  </ul>
 
   <h2>📎 Attachment</h2>
-  <p>[Link to GitHub, Tableau dashboard, or PDF report...]</p>
+  <p>You can preview the main script below, or download the full Python file.</p>
+<pre style="background-color:#f9f9f9; border:1px solid #ccc; padding:10px; overflow:auto;">
+# fertility_script.py
+
+# Import libraries
+import pandas as pd
+import numpy as np
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.cluster import KMeans
+from sklearn.feature_selection import SequentialFeatureSelector
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Example logic from the script...
+# Load and prepare fertility data
+df = pd.read_csv('fertility_data.csv')
+# (Further processing and model building...)
+</pre>
+<p><a href="data/feritility_script.py" download>📄 Download Full Script</a></p>
 
   <a class="back-home" href="index.html">← Back to Home</a>
 </body>
