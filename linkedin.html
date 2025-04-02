@@ -37,6 +37,21 @@
       display: block;
       font-weight: bold;
     }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1.5em;
+  }
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  th, td {
+    padding: 8px 12px;
+    text-align: left;
+  }
+  th {
+    background-color: #f4f4f4;
+  }
   </style>
 </head>
 <body>
@@ -107,15 +122,15 @@
   <h3> Data Visualization</h3>
 
 <h4> Class Distribution</h4>
-<img src="images/LinkedIn/piechart.png" alt="Class Distribution Pie Chart" style="width:100%;max-width:600px;">
+<img src="images/LinkedIn/piechart.png" alt="Class Distribution Pie Chart" style="width:100%;max-width:300px;">
 <p>The pie chart illustrates a balanced distribution between salary classes: 46.2% of job postings are categorized as High Salary, while 53.8% fall under Low Salary.</p>
 
 <h4> Variable Insights Summary</h4>
-<img src="images/LinkedIn/Screenshot 2025-04-01 at 9.04.10 PM.png" alt="Feature Distribution Overview" style="width:100%;max-width:800px;">
+<img src="images/LinkedIn/feature_distribution.png" alt="Feature Distribution Overview" style="width:100%;max-width:400px;">
 <p>This composite plot shows distributions of key categorical and numeric features across salary classes. Notable patterns include the predominance of full-time, non-remote jobs; lower experience levels aligning with lower salaries; and dominance of the staffing & recruiting industry. Small companies and skills like ‘Health Care Provider’ and ‘IT’ are commonly associated with job postings in this dataset.</p>
 
 <h4> Correlation Heatmap</h4>
-<img src="images/LinkedIn/correlation.png" alt="Correlation Matrix" style="width:100%;max-width:600px;">
+<img src="images/LinkedIn/correlation_matrix.png" alt="Correlation Matrix" style="width:100%;max-width:400px;">
 <p>The correlation heatmap demonstrates weak correlations among features (maximum coefficient ≈ 0.27), indicating no multicollinearity concerns for downstream modeling.</p>
 
   <h2>🛠️ Methodology</h2>
@@ -145,36 +160,36 @@
   <h2>📌 Summary</h2>
 
 <h3>🔍 Decision Tree Results</h3>
-<table>
+<table style="border: 1px solid #ccc; border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
-      <th>Model Variant</th>
-      <th>Accuracy (Test)</th>
-      <th>AUC Score</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f4f4f4;">Model Variant</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f4f4f4;">Accuracy (Test)</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f4f4f4;">AUC Score</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>No Preprocessing</td><td>0.77</td><td>0.79</td></tr>
-    <tr><td>Pre-Pruning</td><td>0.77</td><td>0.82</td></tr>
-    <tr><td>Post-Pruning</td><td>0.71</td><td>0.72</td></tr>
-    <tr><td>SMOTE</td><td>0.77</td><td><strong>0.90</strong></td></tr>
+    <tr><td style="border: 1px solid #ccc; padding: 8px 12px;">No Preprocessing</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.77</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.79</td></tr>
+    <tr><td style="border: 1px solid #ccc; padding: 8px 12px;">Pre-Pruning</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.77</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.82</td></tr>
+    <tr><td style="border: 1px solid #ccc; padding: 8px 12px;">Post-Pruning</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.71</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.72</td></tr>
+    <tr><td style="border: 1px solid #ccc; padding: 8px 12px;">SMOTE</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.77</td><td style="border: 1px solid #ccc; padding: 8px 12px;"><strong>0.90</strong></td></tr>
   </tbody>
 </table>
 <p><em>SMOTE-enhanced trees provided the highest AUC score (0.90), improving class balance and recall while maintaining accuracy. Pre-pruning also reduced overfitting effectively. Post-pruning, however, led to underperformance with lower AUC.</em></p>
 
 <h3>🌲 Random Forest Results</h3>
-<table>
+<table style="border: 1px solid #ccc; border-collapse: collapse; width: 100%;">
   <thead>
     <tr>
-      <th>Model Variant</th>
-      <th>Accuracy (Test)</th>
-      <th>AUC Score</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f4f4f4;">Model Variant</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f4f4f4;">Accuracy (Test)</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f4f4f4;">AUC Score</th>
     </tr>
   </thead>
   <tbody>
-    <tr><td>No Preprocessing</td><td>0.79</td><td>0.88</td></tr>
-    <tr><td>AdaBoost</td><td>0.76</td><td>0.84</td></tr>
-    <tr><td>SMOTE + AdaBoost</td><td>0.78</td><td><strong>0.85</strong></td></tr>
+    <tr><td style="border: 1px solid #ccc; padding: 8px 12px;">No Preprocessing</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.79</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.88</td></tr>
+    <tr><td style="border: 1px solid #ccc; padding: 8px 12px;">AdaBoost</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.76</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.84</td></tr>
+    <tr><td style="border: 1px solid #ccc; padding: 8px 12px;">SMOTE + AdaBoost</td><td style="border: 1px solid #ccc; padding: 8px 12px;">0.78</td><td style="border: 1px solid #ccc; padding: 8px 12px;"><strong>0.85</strong></td></tr>
   </tbody>
 </table>
 <p><em>The SMOTE + AdaBoost ensemble delivered the most balanced and robust performance, addressing overfitting and maximizing predictive power. While AdaBoost alone reduced overfitting, its accuracy dropped. Random Forest outperformed Decision Trees across most metrics.</em></p>
