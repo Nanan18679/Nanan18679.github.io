@@ -43,25 +43,203 @@
   <h1>LinkedIn Job Posting Salary Classification Analysis</h1>
 
   <h2>📌 Project Purpose</h2>
-  <p>[Write your project purpose here...]</p>
+  <p>[This project aims to predict the salary level of job postings on LinkedIn using machine learning models. 
+    By analyzing job-related features such as industry, experience level, work type, company size, and required skills, 
+    we classify each job as either “Low Salary” or “High Salary.” 
+    The goal is to help job seekers understand key factors that influence salary offers and empower them to make informed career decisions.
+    Additionally, this analysis can guide employers in crafting competitive and targeted job listings aligned with current market benchmarks.]</p>
 
   <h2>📊 Dataset Overview</h2>
-  <p>[Describe the dataset...]</p>
+  <h3> Data Source</h3>
+  <ul>
+    <li><strong>Source:</strong> <a href="https://www.kaggle.com/datasets/arshkon/linkedin-job-postings/data" target="_blank">LinkedIn Job Postings (2023–2024)</a></li>
+    <li><strong>Total Size:</strong> Over 124,000 job listings from various industries, locations, and seniority levels</li>
+    <li><strong>Target Variable:</strong> Salary — labeled as “High” vs “Low” based on a threshold of <strong>$88,400</strong></li>
+    <li>Filtered to U.S.-based job postings (over 93% of the data)</li>
+  </ul>
+
+  <h3> Data Dictionary</h3>
+  <h4> Sample Data Snapshot</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>formatted_work_type</th>
+        <th>remote_allowed</th>
+        <th>formatted_experience_level</th>
+        <th>company_size</th>
+        <th>state</th>
+        <th>industry</th>
+        <th>employee_count</th>
+        <th>skill_name</th>
+        <th>salary</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Full-time</td><td>0.0</td><td>Associate</td><td>5.0</td><td>CA</td><td>Information Services</td><td>139.0</td><td>Administrative</td><td>Low Salary</td></tr>
+      <tr><td>Full-time</td><td>0.0</td><td>Entry level</td><td>3.0</td><td>FL</td><td>Insurance</td><td>1.0</td><td>Customer Service</td><td>High Salary</td></tr>
+      <tr><td>Contract</td><td>0.0</td><td>Associate</td><td>2.0</td><td>VA</td><td>Staffing and Recruiting</td><td>82.0</td><td>Customer Service</td><td>Low Salary</td></tr>
+      <tr><td>Full-time</td><td>0.0</td><td>Associate</td><td>4.0</td><td>IL</td><td>Staffing and Recruiting</td><td>2719.0</td><td>Engineering</td><td>Low Salary</td></tr>
+      <tr><td>Full-time</td><td>0.0</td><td>Associate</td><td>6.0</td><td>NJ</td><td>Software Development</td><td>2527.0</td><td>Administrative</td><td>Low Salary</td></tr>
+    </tbody>
+  </table>
+
+  <h4> Feature Descriptions</h4>
+  <table>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><code>formatted_work_type</code></td><td>Full-time, contract, or part-time – Dummy encoded categorical variables</td></tr>
+      <tr><td><code>remote_allowed</code></td><td>Whether remote work is allowed (1 = Yes, 0 = No)</td></tr>
+      <tr><td><code>formatted_experience_level</code></td><td>Mapped to experience levels (Internship = 0, Entry level = 1, Associate = 2, Mid-Senior level = 3, Executive = 4, Director = 5)</td></tr>
+      <tr><td><code>company_size</code></td><td>Grouped based on number of employees (0 = smallest, 7 = largest)</td></tr>
+      <tr><td><code>state</code></td><td>U.S. state abbreviation of company HQ</td></tr>
+      <tr><td><code>employee_count</code></td><td>Total number of employees at the company</td></tr>
+      <tr><td><code>industry</code></td><td>Sector in which the company operates</td></tr>
+      <tr><td><code>skill_name</code></td><td>Primary skill required for the job</td></tr>
+      <tr><td><code>salary</code></td><td>Binary classification of salary level (High / Low)</td></tr>
+    </tbody>
+  </table>
+
+  <h3> Data Visualization</h3>
+
+<h4> Class Distribution</h4>
+<img src="images/LinkedIn/piechart.png" alt="Class Distribution Pie Chart" style="width:100%;max-width:600px;">
+<p>The pie chart illustrates a balanced distribution between salary classes: 46.2% of job postings are categorized as High Salary, while 53.8% fall under Low Salary.</p>
+
+<h4> Variable Insights Summary</h4>
+<img src="images/LinkedIn/Screenshot 2025-04-01 at 9.04.10 PM.png" alt="Feature Distribution Overview" style="width:100%;max-width:800px;">
+<p>This composite plot shows distributions of key categorical and numeric features across salary classes. Notable patterns include the predominance of full-time, non-remote jobs; lower experience levels aligning with lower salaries; and dominance of the staffing & recruiting industry. Small companies and skills like ‘Health Care Provider’ and ‘IT’ are commonly associated with job postings in this dataset.</p>
+
+<h4> Correlation Heatmap</h4>
+<img src="images/LinkedIn/correlation.png" alt="Correlation Matrix" style="width:100%;max-width:600px;">
+<p>The correlation heatmap demonstrates weak correlations among features (maximum coefficient ≈ 0.27), indicating no multicollinearity concerns for downstream modeling.</p>
 
   <h2>🛠️ Methodology</h2>
-  <p>[Explain your approach/methods used...]</p>
+  
+  <h3>1. Data Preprocessing</h3>
+  <ul>
+    <li>Encoded categorical variables into numeric format</li>
+    <li>Applied <strong>SMOTE</strong> to handle class imbalance between salary groups</li>
+    <li>Split dataset using an <strong>80/20 holdout validation</strong> approach</li>
+    <li>Implemented <strong>10-fold cross-validation</strong> to ensure generalizability of results</li>
+  </ul>
+  
+  <h3>2. Models Applied</h3>
+  <ul>
+    <li><strong>Decision Tree Classifier:</strong>
+      <ul>
+        <li>Trained and evaluated unprocessed, pre-pruned, post-pruned, and SMOTE-enhanced versions</li>
+      </ul>
+    </li>
+    <li><strong>Random Forest Classifier:</strong>
+      <ul>
+        <li>Tested baseline ensemble model, as well as SMOTE-balanced and AdaBoost-boosted variants</li>
+      </ul>
+    </li>
+  </ul>
 
   <h2>📌 Summary</h2>
-  <p>[Summarize your findings...]</p>
+
+<h3>🔍 Decision Tree Results</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Model Variant</th>
+      <th>Accuracy (Test)</th>
+      <th>AUC Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>No Preprocessing</td><td>0.77</td><td>0.79</td></tr>
+    <tr><td>Pre-Pruning</td><td>0.77</td><td>0.82</td></tr>
+    <tr><td>Post-Pruning</td><td>0.71</td><td>0.72</td></tr>
+    <tr><td>SMOTE</td><td>0.77</td><td><strong>0.90</strong></td></tr>
+  </tbody>
+</table>
+<p><em>SMOTE-enhanced trees provided the highest AUC score (0.90), improving class balance and recall while maintaining accuracy. Pre-pruning also reduced overfitting effectively. Post-pruning, however, led to underperformance with lower AUC.</em></p>
+
+<h3>🌲 Random Forest Results</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Model Variant</th>
+      <th>Accuracy (Test)</th>
+      <th>AUC Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>No Preprocessing</td><td>0.79</td><td>0.88</td></tr>
+    <tr><td>AdaBoost</td><td>0.76</td><td>0.84</td></tr>
+    <tr><td>SMOTE + AdaBoost</td><td>0.78</td><td><strong>0.85</strong></td></tr>
+  </tbody>
+</table>
+<p><em>The SMOTE + AdaBoost ensemble delivered the most balanced and robust performance, addressing overfitting and maximizing predictive power. While AdaBoost alone reduced overfitting, its accuracy dropped. Random Forest outperformed Decision Trees across most metrics.</em></p>
+
+<h3>📌 Key Takeaways</h3>
+<ul>
+  <li>Preprocessing techniques like SMOTE and pruning significantly improved model generalization and recall.</li>
+  <li>Random Forest models generally outperformed Decision Trees, especially in AUC scores.</li>
+  <li>Combining SMOTE with AdaBoost achieved both high performance and overfitting reduction.</li>
+</ul>
+
+<h3>📈 Conclusion</h3>
+<p>This project demonstrates that job features such as experience level, company size, and skill demand can help predict salary levels. Though results aren't conclusive, this study highlights key factors for talent managers and data-driven job strategy. Future work may integrate external signals like company revenue, regional trends, or retraining strategies to improve predictive performance.</p>
 
   <h2>💡 Insights</h2>
-  <p>[Key insights and takeaways...]</p>
+  <ul>
+    <li> <strong>Experience Level:</strong> Seniority is a major factor in salary—roles labeled "Mid-Senior" and above are strongly associated with high salary postings.</li>
+    <li> <strong>Company Size & Employee Count:</strong> Surprisingly, high salary jobs are often associated with mid-sized companies, while very small or very large companies show more variability.</li>
+    <li> <strong>State & Location:</strong> States like California, New York, and Texas dominate the volume of high salary job postings, reflecting regional market dynamics.</li>
+    <li> <strong>Remote Work:</strong> Most high salary jobs are not remote, suggesting a potential tradeoff between flexibility and compensation.</li>
+    <li> <strong>Skills in Demand:</strong> Positions requiring technical and professional skills like "Information Technology", "Engineering", and "Project Management" tend to correlate with higher salary brackets.</li>
+    <li> <strong>Predictability:</strong> AUC scores above 0.85 for Random Forest and Decision Tree models with SMOTE + Boosting confirm that salary level is reasonably predictable using job attributes.</li>
+  </ul>
 
   <h2>🧰 Tech Stack</h2>
-  <p>[Mention libraries, tools, languages...]</p>
+  <ul>
+    <li> <strong>Python</strong>: Primary programming language for data processing and modeling</li>
+    <li> <strong>Pandas</strong>: Used for data manipulation and analysis</li>
+    <li> <strong>Matplotlib & Seaborn</strong>: Created visualizations and exploratory data analysis</li>
+    <li> <strong>Scikit-learn</strong>: Employed for model training, preprocessing, SMOTE, and evaluation metrics</li>
+    <li> <strong>SMOTE</strong>: Used to balance dataset via oversampling minority class</li>
+    <li> <strong>Jupyter Notebook</strong>: Platform used for building and documenting model workflows</li>
+  </ul>
 
   <h2>📎 Attachment</h2>
-  <p>[Link to GitHub, Tableau dashboard, or PDF report...]</p>
+<p>You can preview the main script below, or <a href="data/LinkedIn%20salary%20classification.py" download>download the full Python file</a>.</p>
+
+<details>
+  <summary>Click to expand script preview</summary>
+  <pre><code>
+# LinkedIn Salary Classification Script (excerpt)
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score
+
+# Load data
+df = pd.read_csv("linkedin_jobs.csv")
+
+# Feature selection & preprocessing steps...
+
+# Split data
+X = df.drop("salary", axis=1)
+y = df["salary"]
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+
+# Train model
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+
+# Evaluate
+predictions = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, predictions))
+  </code></pre>
+</details>
 
   <a class="back-home" href="index.html">← Back to Home</a>
 </body>
