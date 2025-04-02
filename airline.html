@@ -43,25 +43,133 @@
   <h1>Sun Country Airlines Business Analysis and Targeted Marketing Insights</h1>
 
   <h2>📌 Project Purpose</h2>
-  <p>[Write your project purpose here...]</p>
+<p>
+This project aims to segment the diverse customer base of Sun Country Airlines by applying unsupervised learning techniques—specifically, K-Means Clustering—on real-world booking data. Through detailed analysis of features such as age group, Ufly membership status, seasonality, booking behavior, departure-destination patterns, and pre-booking intervals, we identified five distinct traveler segments. The goal is to derive data-driven insights that can inform personalized marketing strategies, improve customer experience, and ultimately align Sun Country’s services with evolving consumer needs. By leveraging cluster-based segmentation and business intelligence, this project provides the airline with a framework for smarter, more targeted decision-making.
+</p>
+<h2>📊 Dataset Overview</h2>
 
-  <h2>📊 Dataset Overview</h2>
-  <p>[Describe the dataset...]</p>
+<h3>Data Source</h3>
+<ul>
+  <li><code>sample_data_transformed.csv</code> – Raw customer booking dataset with both categorical and numeric features.</li>
+  <li><code>Clustering Data.csv</code> – Cleaned and encoded version where categorical variables are transformed into numeric form.</li>
+  <li><code>final_dataframe_clusters.csv</code> – Final dataset including assigned cluster labels for each customer.</li>
+</ul>
 
-  <h2>🛠️ Methodology</h2>
-  <p>[Explain your approach/methods used...]</p>
+<h3>Data Dictionary</h3>
+<table>
+  <thead>
+    <tr><th>Column Name</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>uid</code></td><td>Unique identifier for each customer</td></tr>
+    <tr><td><code>age_group</code></td><td>Categorized customer age group (e.g., 18–24, 25–34, etc.)</td></tr>
+    <tr><td><code>ufly_member</code></td><td>Whether the customer is enrolled in the Ufly Rewards program (1 = Yes, 0 = No)</td></tr>
+    <tr><td><code>roundtrip</code></td><td>Indicates whether the booking was a round trip (1 = Yes, 0 = No)</td></tr>
+    <tr><td><code>group_size</code></td><td>Number of passengers in the booking group</td></tr>
+    <tr><td><code>group</code></td><td>Travel group indicator: 1 = group, 0 = solo</td></tr>
+    <tr><td><code>seasonality</code></td><td>Quarter in which the travel occurred (Q1 to Q4)</td></tr>
+    <tr><td><code>days_prebooked</code></td><td>Days between the booking date and the departure date</td></tr>
+    <tr><td><code>true_origins</code></td><td>City or airport of origin</td></tr>
+    <tr><td><code>true_destination</code></td><td>Landing location for the flight</td></tr>
+    <tr><td><code>final_destination</code></td><td>Final stop in a multi-leg journey</td></tr>
+    <tr><td><code>cluster</code></td><td>Cluster label assigned via K-Means clustering</td></tr>
+  </tbody>
+</table>
 
-  <h2>📌 Summary</h2>
-  <p>[Summarize your findings...]</p>
+<h2>🛠️ Methodology</h2>
 
-  <h2>💡 Insights</h2>
-  <p>[Key insights and takeaways...]</p>
+<h3>1. Data Preprocessing</h3>
+<ul>
+  <li>Checked and handled null values; normalized numerical columns for consistency.</li>
+  <li>Encoded categorical features such as <code>age_group</code>, <code>trip type</code>, <code>seasonality</code> for clustering use.</li>
+</ul>
 
-  <h2>🧰 Tech Stack</h2>
-  <p>[Mention libraries, tools, languages...]</p>
+<h3>2. K-Means Clustering</h3>
+<ul>
+  <li>Used the <strong>elbow method</strong> to determine the optimal number of clusters (K=5).</li>
+  <li>Performed K-Means clustering to segment customers based on travel behavior and demographics.</li>
+  <li>Assigned a cluster label to each customer and appended it to the final dataset.</li>
+</ul>
 
-  <h2>📎 Attachment</h2>
-  <p>[Link to GitHub, Tableau dashboard, or PDF report...]</p>
+<h3>3. Visualization & Interpretation</h3>
+<p>To understand cluster characteristics, we visualized key variables including:</p>
+<ul>
+  <li>Age distribution and group size across clusters</li>
+  <li>Trip type (group vs solo), roundtrip status, and booking season (Q1–Q4)</li>
+  <li>Days prebooked and booking channel preferences</li>
+</ul>
+<h2>📌 Summary</h2>
+
+<h3>Cluster Size Overview</h3>
+<img src="images/airline/cluster_size.png" alt="Cluster Size Distribution" width="600">
+<p>The dataset was segmented into five clusters of varying sizes, with Cluster 1 and Cluster 3 representing the largest customer groups.</p>
+
+<h3>Cluster 0 – Family & Organized Travelers</h3>
+<img src="images/airline/cluster0.png" alt="Cluster 0 Profile" width="600">
+<img src="images/airline/map0.png" alt="Cluster 0 Map" width="600">
+<p>This group includes families with children and older adults (age 55+). They plan trips well in advance, typically in Q1 and Q4, and book through Sun Country’s website or travel agents. Top destinations include warm winter locations.</p>
+
+<h3>Cluster 1 – Career-driven Travelers</h3>
+<img src="images/airline/cluster1.png" alt="Cluster 1 Profile" width="600">
+<img src="images/airline/map1.png" alt="Cluster 1 Map" width="600">
+<p>These passengers are working professionals (25–54), often traveling for business. They use external platforms to book year-round, often prioritizing economy options and flexibility.</p>
+
+<h3>Cluster 2 – Planned & Seasonal Travelers</h3>
+<img src="images/airline/cluster2.png" alt="Cluster 2 Profile" width="600">
+<img src="images/airline/map2.png" alt="Cluster 2 Map" width="600">
+<p>Middle-aged and senior travelers who favor early bookings and tend to travel in the winter. They show high loyalty to Sun Country’s own booking channels and frequently fly to Florida and Mexico.</p>
+
+<h3>Cluster 3 – Seasonal Travelers & Self-service Bookers</h3>
+<img src="images/airline/cluster3.png" alt="Cluster 3 Profile" width="600">
+<img src="images/airline/map3.png" alt="Cluster 3 Map" width="600">
+<p>Primarily non-members who prefer direct bookings and travel during Q3 and Q4. This cluster contains elderly explorers, career balancers, and independent young adults.</p>
+
+<h3>Cluster 4 – Independent & Improvised Visitors</h3>
+<img src="images/airline/cluster4.png" alt="Cluster 4 Profile" width="600">
+<img src="images/airline/map4.png" alt="Cluster 4 Map" width="600">
+<p>A diverse group who tends to avoid loyalty programs. They often book last-minute, travel mostly in summer, and rely on third-party platforms for ticket purchases.</p>
+
+<h2>💡 Insights & Recommendations</h2>
+
+<h3>🔍 Behavioral Insights by Cluster</h3>
+<ul>
+  <li><strong>Cluster 0 – Family & Organized Travelers:</strong> These travelers plan far in advance, prefer Q1/Q4 trips, and book through official channels. They are cost-conscious and responsive to family travel deals.</li>
+  <li><strong>Cluster 1 – Career-driven Travelers:</strong> Year-round travelers booking through agencies, likely for work. Prefer flexibility, value, and on-time performance.</li>
+  <li><strong>Cluster 2 – Planned & Seasonal Travelers:</strong> Often fly to warm destinations like Florida/Mexico. Highly loyal to SCA's website; most proactive planners in the data.</li>
+  <li><strong>Cluster 3 – Seasonal & Self-service Bookers:</strong> Non-members booking Q3/Q4 trips. Independent explorers and occasional travelers who book through the website but aren’t loyal.</li>
+  <li><strong>Cluster 4 – Independent & Improvised Visitors:</strong> Last-minute bookers, minimal loyalty, more price-sensitive, and heavy OTA usage. Likely leisure travelers seeking deals.</li>
+</ul>
+
+<h3>📊 Strategic Recommendations</h3>
+<ul>
+  <li><strong> Personalized Promotion by Cluster:</strong> Target Cluster 0 with early-bird family bundles, and Cluster 4 with last-minute flash sales or mobile-exclusive coupons.</li>
+  <li><strong> Loyalty Program Expansion:</strong> Build low-barrier rewards for Clusters 1 & 2 who prefer direct booking. Incentivize them with flexible rescheduling and loyalty points.</li>
+  <li><strong> Optimize Seasonal Route Planning:</strong> Increase capacity to warm weather locations during Q1 and Q4, especially for Clusters 0 and 2.</li>
+  <li><strong> Mobile-first Booking Experience:</strong> Enhance mobile UI for Clusters 3 & 4, who favor independence. Push in-app upgrades and upsells.</li>
+  <li><strong> Bundle Offers for Group Travel:</strong> Group travel bundles (flight + hotel + bag) can increase conversions for Clusters 0 and 2.</li>
+  <li><strong> Predictive Dynamic Pricing:</strong> Use cluster behavior patterns in pricing models (e.g., charge higher for short lead-time Cluster 4, offer discounts for early-bird Cluster 0).</li>
+  <li><strong> OTA Partnership Strategy:</strong> Turn OTA-reliant Clusters (esp. Cluster 4) into loyal customers by offering direct booking incentives (e.g., $10 off if switching to website).</li>
+  <li><strong> Recluster Quarterly:</strong> Re-evaluate clusters regularly to track trends and adjust strategy post-COVID or during holiday travel seasons.</li>
+</ul>
+
+<h2>🧰 Tech Stack</h2>
+<ul>
+  <li><strong>Python:</strong> Primary programming language used for data preprocessing, clustering, and visualization</li>
+  <li><strong>Pandas:</strong> Data manipulation and feature engineering on the booking dataset</li>
+  <li><strong>NumPy:</strong> Numeric operations and array transformations during standardization</li>
+  <li><strong>Scikit-learn:</strong> Core machine learning library used for K-Means clustering, Elbow Method, and Silhouette Score</li>
+  <li><strong>Matplotlib & Seaborn:</strong> Created visualizations to explore cluster behaviors and patterns</li>
+  <li><strong>Plotly:</strong> Used to generate interactive maps for cluster-based geographic insights</li>
+  <li><strong>Jupyter Notebook:</strong> Environment for iterative development, analysis, and documentation</li>
+</ul>
+
+<h2>📎 Attachment</h2>
+<p>You can download the supporting datasets below for reference or further exploration:</p>
+<ul>
+  <li><a href="data/sample_data_transformed.csv" download>📄 sample_data_transformed.csv</a> – Original customer booking dataset with mixed features</li>
+  <li><a href="data/Clustering%20Data.csv" download>📊 Clustering Data.csv</a> – Cleaned and encoded version for clustering model</li>
+  <li><a href="data/final_dataframe_clusters.csv" download>✅ final_dataframe_clusters.csv</a> – Final output with cluster labels appended</li>
+</ul>
 
   <a class="back-home" href="index.html">← Back to Home</a>
 </body>
