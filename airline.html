@@ -56,23 +56,62 @@ This project aims to segment the diverse customer base of Sun Country Airlines b
 </ul>
 
 <h3>Data Dictionary</h3>
-<table>
+<table style="border: 1px solid #ccc; border-collapse: collapse; width: 100%; margin-bottom: 1.5em;">
   <thead>
-    <tr><th>Column Name</th><th>Description</th></tr>
+    <tr>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f4f4f4;">Column Name</th>
+      <th style="border: 1px solid #ccc; padding: 8px 12px; background-color: #f4f4f4;">Description</th>
+    </tr>
   </thead>
   <tbody>
-    <tr><td><code>uid</code></td><td>Unique identifier for each customer</td></tr>
-    <tr><td><code>age_group</code></td><td>Categorized customer age group (e.g., 18–24, 25–34, etc.)</td></tr>
-    <tr><td><code>ufly_member</code></td><td>Whether the customer is enrolled in the Ufly Rewards program (1 = Yes, 0 = No)</td></tr>
-    <tr><td><code>roundtrip</code></td><td>Indicates whether the booking was a round trip (1 = Yes, 0 = No)</td></tr>
-    <tr><td><code>group_size</code></td><td>Number of passengers in the booking group</td></tr>
-    <tr><td><code>group</code></td><td>Travel group indicator: 1 = group, 0 = solo</td></tr>
-    <tr><td><code>seasonality</code></td><td>Quarter in which the travel occurred (Q1 to Q4)</td></tr>
-    <tr><td><code>days_prebooked</code></td><td>Days between the booking date and the departure date</td></tr>
-    <tr><td><code>true_origins</code></td><td>City or airport of origin</td></tr>
-    <tr><td><code>true_destination</code></td><td>Landing location for the flight</td></tr>
-    <tr><td><code>final_destination</code></td><td>Final stop in a multi-leg journey</td></tr>
-    <tr><td><code>cluster</code></td><td>Cluster label assigned via K-Means clustering</td></tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>uid</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Unique identifier for each customer</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>age_group</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Categorized customer age group (e.g., 18–24, 25–34, etc.)</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>ufly_member</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Whether the customer is enrolled in the Ufly Rewards program (1 = Yes, 0 = No)</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>roundtrip</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Indicates whether the booking was a round trip (1 = Yes, 0 = No)</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>group_size</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Number of passengers in the booking group</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>group</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Travel group indicator: 1 = group, 0 = solo</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>seasonality</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Quarter in which the travel occurred (Q1 to Q4)</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>days_prebooked</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Days between the booking date and the departure date</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>true_origins</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">City or airport of origin</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>true_destination</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Landing location for the flight</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>final_destination</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Final stop in a multi-leg journey</td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;"><code>cluster</code></td>
+      <td style="border: 1px solid #ccc; padding: 8px 12px;">Cluster label assigned via K-Means clustering</td>
+    </tr>
   </tbody>
 </table>
 
@@ -102,7 +141,7 @@ This project aims to segment the diverse customer base of Sun Country Airlines b
 
 <h3>Cluster Size Overview</h3>
 <img src="images/airline/cluster_size.png" alt="Cluster Size Distribution" width="600">
-<p>The dataset was segmented into five clusters of varying sizes, with Cluster 1 and Cluster 3 representing the largest customer groups.</p>
+<p>The dataset was segmented into five clusters of varying sizes, with Cluster 1 and Cluster 2 representing the largest customer groups.</p>
 
 <h3>Cluster 0 – Family & Organized Travelers</h3>
 <img src="images/airline/cluster0.png" alt="Cluster 0 Profile" width="600">
