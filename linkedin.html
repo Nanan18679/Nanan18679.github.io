@@ -22,6 +22,27 @@
       color: #1a73e8;
       margin-top: 1.5em;
     }
+    h3 {
+      margin-top: 1em;
+    }
+    h4 {
+      margin-top: 1em;
+    }
+    p {
+      margin-top: 0.5em;
+    }
+    a {
+      color: #1a73e8;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .back-home {
+      margin-top: 2em;
+      display: block;
+      font-weight: bold;
+    }
     table {
       border-collapse: collapse;
       width: 100%;
@@ -37,12 +58,6 @@
     th {
       background-color: #f4f4f4;
     }
-    details {
-      background: #f9f9f9;
-      padding: 10px;
-      border: 1px solid #ddd;
-      margin-bottom: 20px;
-    }
   </style>
 </head>
 <body>
@@ -52,16 +67,16 @@
   <p>This project aims to predict the salary level of job postings on LinkedIn using machine learning models. By analyzing job-related features such as industry, experience level, work type, company size, and required skills, we classify each job as either “Low Salary” or “High Salary.” The goal is to help job seekers understand key factors that influence salary offers and empower them to make informed career decisions. Additionally, this analysis can guide employers in crafting competitive and targeted job listings aligned with current market benchmarks.</p>
 
   <h2>📊 Dataset Overview</h2>
-  <h3>📁 Data Source</h3>
+  <h3>Data Source</h3>
   <ul>
-    <li><strong>Source:</strong> LinkedIn Job Postings (2023–2024)</li>
+    <li><strong>Source:</strong> <a href="https://www.kaggle.com/datasets/arshkon/linkedin-job-postings/data" target="_blank">LinkedIn Job Postings (2023–2024)</a></li>
     <li><strong>Total Size:</strong> Over 124,000 job listings from various industries, locations, and seniority levels</li>
     <li><strong>Target Variable:</strong> Salary — labeled as “High” vs “Low” based on a threshold of <strong>$88,400</strong></li>
     <li>Filtered to U.S.-based job postings (over 93% of the data)</li>
   </ul>
 
-  <h3>🗂️ Data Dictionary</h3>
-  <h4>📌 Sample Data Snapshot</h4>
+  <h3>Data Dictionary</h3>
+  <h4>Sample Data Snapshot</h4>
   <table>
     <thead>
       <tr>
@@ -77,49 +92,55 @@
     </tbody>
   </table>
 
-  <h4>📘 Feature Descriptions</h4>
+  <h4>Feature Descriptions</h4>
   <table>
-    <thead><tr><th>Feature</th><th>Description</th></tr></thead>
+    <thead>
+      <tr><th>Feature</th><th>Description</th></tr>
+    </thead>
     <tbody>
-      <tr><td>formatted_work_type</td><td>Full-time, contract, or part-time – Dummy encoded categorical variables</td></tr>
-      <tr><td>remote_allowed</td><td>Whether remote work is allowed (1 = Yes, 0 = No)</td></tr>
-      <tr><td>formatted_experience_level</td><td>Experience levels encoded: Internship (0) to Director (5)</td></tr>
-      <tr><td>company_size</td><td>Grouped from 0 (smallest) to 7 (largest)</td></tr>
-      <tr><td>state</td><td>U.S. state abbreviation</td></tr>
-      <tr><td>employee_count</td><td>Total number of employees at company</td></tr>
-      <tr><td>industry</td><td>Company's sector</td></tr>
-      <tr><td>skill_name</td><td>Primary required skill</td></tr>
-      <tr><td>salary</td><td>Target variable: High / Low</td></tr>
+      <tr><td><code>formatted_work_type</code></td><td>Full-time, contract, or part-time – Dummy encoded categorical variables</td></tr>
+      <tr><td><code>remote_allowed</code></td><td>Whether remote work is allowed (1 = Yes, 0 = No)</td></tr>
+      <tr><td><code>formatted_experience_level</code></td><td>Mapped to experience levels (Internship = 0, Entry level = 1, Associate = 2, Mid-Senior level = 3, Executive = 4, Director = 5)</td></tr>
+      <tr><td><code>company_size</code></td><td>Grouped based on number of employees (0 = smallest, 7 = largest)</td></tr>
+      <tr><td><code>state</code></td><td>U.S. state abbreviation of company HQ</td></tr>
+      <tr><td><code>employee_count</code></td><td>Total number of employees at the company</td></tr>
+      <tr><td><code>industry</code></td><td>Sector in which the company operates</td></tr>
+      <tr><td><code>skill_name</code></td><td>Primary skill required for the job</td></tr>
+      <tr><td><code>salary</code></td><td>Binary classification of salary level (High / Low)</td></tr>
     </tbody>
   </table>
 
   <h2>📊 Data Visualization</h2>
-  <h3>📈 Class Distribution</h3>
+  <h3>Class Distribution Pie Chart</h3>
   <p>The pie chart illustrates a balanced distribution between salary classes: 46.2% of job postings are categorized as High Salary, while 53.8% fall under Low Salary.</p>
+  <img src="images/LinkedIn/piechart.png" alt="Class Distribution Pie Chart" width="400">
 
-  <h3>📊 Variable Insights Summary</h3>
-  <p>This composite plot shows distributions of key categorical and numeric features across salary classes. Notable patterns include the predominance of full-time, non-remote jobs; lower experience levels aligning with lower salaries; and dominance of the staffing & recruiting industry.</p>
+  <h3>Variable Insights Summary</h3>
+  <p>This composite plot shows distributions of key categorical and numeric features across salary classes. Notable patterns include the predominance of full-time, non-remote jobs; lower experience levels aligning with lower salaries; and dominance of the staffing & recruiting industry. Small companies and skills like ‘Health Care Provider’ and ‘IT’ are commonly associated with job postings in this dataset.</p>
+  <img src="images/LinkedIn/feature_distribution.png" alt="Feature Distribution Plot" width="600">
 
-  <h3>🔍 Correlation Heatmap</h3>
+  <h3>Correlation Heatmap</h3>
   <p>The correlation heatmap demonstrates weak correlations among features (maximum coefficient ≈ 0.27), indicating no multicollinearity concerns for downstream modeling.</p>
+  <img src="images/LinkedIn/correlation_matrix.png" alt="Correlation Heatmap" width="500">
 
   <h2>🛠️ Methodology</h2>
   <ul>
-    <li>Encoded categorical variables</li>
-    <li>Applied SMOTE for balancing classes</li>
-    <li>Train-test split 80/20 and 10-fold cross-validation</li>
-    <li>Models: Decision Tree (with variants) and Random Forest (with AdaBoost & SMOTE)</li>
+    <li>Encoded categorical variables into numeric format</li>
+    <li>Applied SMOTE to handle class imbalance between salary groups</li>
+    <li>Split dataset using an 80/20 holdout validation approach</li>
+    <li>Implemented 10-fold cross-validation to ensure generalizability of results</li>
+    <li>Trained Decision Tree and Random Forest classifiers (with variations like AdaBoost, pruning, SMOTE)</li>
   </ul>
 
   <h2>📌 Summary</h2>
-  <h3>🔍 Decision Tree Results</h3>
+  <h3>Decision Tree Results</h3>
   <table>
     <thead><tr><th>Model Variant</th><th>Accuracy (Test)</th><th>AUC Score</th></tr></thead>
     <tbody>
       <tr><td>No Preprocessing</td><td>0.77</td><td>0.79</td></tr>
       <tr><td>Pre-Pruning</td><td>0.77</td><td>0.82</td></tr>
       <tr><td>Post-Pruning</td><td>0.71</td><td>0.72</td></tr>
-      <tr><td>SMOTE</td><td>0.77</td><td>0.90</td></tr>
+      <tr><td>SMOTE</td><td>0.77</td><td><strong>0.90</strong></td></tr>
     </tbody>
   </table>
 
@@ -135,55 +156,679 @@
 
   <h2>📌 Key Takeaways</h2>
   <ul>
-    <li>SMOTE and pruning improved recall and generalization</li>
-    <li>Random Forest outperformed Decision Trees in most metrics</li>
-    <li>SMOTE + AdaBoost balanced performance and reduced overfitting</li>
+    <li>Preprocessing techniques like SMOTE and pruning significantly improved model generalization and recall.</li>
+    <li>Random Forest models generally outperformed Decision Trees, especially in AUC scores.</li>
+    <li>Combining SMOTE with AdaBoost achieved both high performance and overfitting reduction.</li>
   </ul>
 
   <h2>📈 Conclusion</h2>
-  <p>This project shows job features like experience level and skills can predict salary levels. Future work may explore more signals like revenue or region trends.</p>
+  <p>This project demonstrates that job features such as experience level, company size, and skill demand can help predict salary levels. Though results aren't conclusive, this study highlights key factors for talent managers and data-driven job strategy. Future work may integrate external signals like company revenue, regional trends, or retraining strategies to improve predictive performance.</p>
 
   <h2>💡 Insights</h2>
   <ul>
-    <li><strong>Experience Level:</strong> Mid-Senior+ roles linked to High Salary</li>
-    <li><strong>Company Size:</strong> Mid-sized companies more consistent in high salary roles</li>
-    <li><strong>State & Location:</strong> CA, NY, TX post more high salary jobs</li>
-    <li><strong>Remote Work:</strong> High salaries less likely remote</li>
-    <li><strong>Skills:</strong> Engineering, IT, and Project Management dominate</li>
-    <li><strong>Predictability:</strong> AUC > 0.85 suggests salary classification is effective</li>
+    <li><strong>Experience Level:</strong> Higher experience levels were consistently associated with higher salary postings. Particularly, roles labeled “Mid-Senior”, “Director”, and “Executive” had significantly greater representation in the high salary class. Entry-level and associate roles, while numerous, showed a tendency to fall into the low salary category, suggesting that upward mobility in job experience contributes positively to compensation expectations.</li>
+    
+    <li><strong>Company Size & Employee Count:</strong> Jobs from mid-sized companies (typically between 100 to 500 employees) tended to offer higher salaries. This might reflect the agility and resource balance in medium enterprises, which often compete for talent by offering attractive packages. On the other hand, very small or very large companies exhibited a more mixed salary profile, indicating varied compensation strategies across company sizes.</li>
+    
+    <li><strong>State & Location:</strong> Geographical location plays a notable role in salary determination. States such as California (CA), New York (NY), and Texas (TX) reported a high volume of high salary job postings. This aligns with the economic strength and cost-of-living patterns in these regions. Remote roles, however, were more likely to appear under the low salary category, possibly due to outsourcing trends or reduced regional cost adjustments.</li>
+    
+    <li><strong>Remote Work:</strong> Surprisingly, remote work was not strongly linked to higher compensation. In fact, the majority of high salary postings were classified as non-remote. This insight may suggest that organizations are still offering premium compensation to in-office roles, possibly due to the perceived value of physical presence or because remote roles are more frequently offered for less senior positions.</li>
+    
+    <li><strong>Skills in Demand:</strong> Certain job skills had a strong correlation with higher salaries. These include technical domains like “Information Technology”, “Engineering”, and “Project Management.” Conversely, administrative and customer service skills were more often associated with lower-paying roles. This demonstrates the ongoing market trend where specialized and high-demand skills are rewarded with competitive salaries.</li>
+    
+    <li><strong>Model Predictability:</strong> The strong performance of Random Forest models, especially when combined with SMOTE and boosting techniques, indicates that salary classification is feasible and moderately reliable using structured job posting data. AUC scores above 0.85 support the idea that even with a relatively simple set of features, salary level can be anticipated with reasonable confidence.</li>
   </ul>
 
   <h2>🧰 Tech Stack</h2>
   <ul>
-    <li><strong>Python</strong>: for data analysis</li>
-    <li><strong>Pandas</strong>, <strong>Seaborn</strong>, <strong>Matplotlib</strong>: for wrangling and visualization</li>
-    <li><strong>Scikit-learn</strong>: model training & metrics</li>
-    <li><strong>SMOTE</strong>: class balancing</li>
-    <li><strong>Jupyter Notebook</strong>: coding environment</li>
+    <li><strong>Python 3.8+:</strong> Primary programming language used for all stages of the project, including data preprocessing, feature engineering, model training, evaluation, and visualization.</li>
+    <li><strong>Pandas:</strong> Utilized for data cleaning, transformation, and manipulation—enabled efficient handling of large tabular datasets.</li>
+    <li><strong>NumPy:</strong> Provided support for numerical operations and array manipulation during preprocessing and feature transformation.</li>
+    <li><strong>Matplotlib & Seaborn:</strong> Used for visualizing data distributions, feature correlations, and model performance.</li>
+    <li><strong>Scikit-learn:</strong> Core library for machine learning tasks such as decision trees, random forests, model evaluation (AUC, accuracy), SMOTE, cross-validation, and train-test split.</li>
+    <li><strong>Imbalanced-learn (SMOTE):</strong> Applied Synthetic Minority Over-sampling Technique to address class imbalance between high and low salary labels.</li>
+    <li><strong>Jupyter Notebook:</strong> Interactive environment used to write and document the workflow, experiment with models, and render visual outputs inline.</li>
   </ul>
 
   <h2>📎 Attachment</h2>
-  <p>You can preview the main script below, or <a href="data/LinkedIn%20salary%20classification.py" download>download the full Python file</a>.</p>
-
+  <h3>📜 Full Python Script</h3>
   <details>
-    <summary>Click to expand script preview</summary>
-    <pre><code>
-# LinkedIn Salary Classification Script (excerpt)
+    <summary>Click to expand the full Python code</summary>
+    <pre style="white-space: pre-wrap; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; overflow-x: auto;">
+""""
+Salary Classification from LinkedIn Job Postings
+------------------------------------------------
+This script performs salary classification using a variety of machine learning models
+based on job posting data collected from LinkedIn.
+
+"""
+
 import pandas as pd
+import numpy as np
+
+# DATA CLEANING
+
+## Loading and Merging Data
+
+
+# Load the datasets
+companies_df = pd.read_csv('companies.csv')
+company_industries_df = pd.read_csv('company_industries.csv')
+company_specialities_df = pd.read_csv('company_specialities.csv')
+employee_counts_df = pd.read_csv('employee_counts.csv')
+job_industries_df = pd.read_csv('job_industries.csv')
+job_skills_df = pd.read_csv('job_skills.csv')
+postings_df = pd.read_csv('postings.csv')
+skills_df = pd.read_csv('skills.csv')
+
+postings_df.nunique()
+
+postings_df.columns
+
+postings_df = postings_df.drop(columns = ['description','med_salary','applies','original_listed_time',
+                                          'views','job_posting_url','application_url','application_type',
+                                          'expiry','closed_time','skills_desc','listed_time','posting_domain',
+                                          'sponsored', 'work_type','currency', 'compensation_type', 'fips', 'normalized_salary','location'])
+
+postings_df.head()
+
+companies_df = companies_df.drop(columns = ['name', 'description','zip_code','address','url'])
+
+companies_df.head()
+
+merged_df = postings_df.merge(companies_df, on = 'company_id', how = 'left')
+
+merged_df.head()
+
+merged_df = merged_df.merge(company_industries_df, on = 'company_id', how = 'left')
+
+merged_df.head()
+
+merged_df = merged_df.merge(company_specialities_df, on = 'company_id', how = 'left')
+
+merged_df.head()
+
+employee_counts_df = employee_counts_df.drop(columns = ['follower_count', 'time_recorded'])
+
+merged_df = merged_df.merge(employee_counts_df, on = 'company_id', how = 'left')
+
+merged_df.head()
+
+merged_df = merged_df.merge(job_industries_df, on = 'job_id', how = 'left')
+merged_df = merged_df.merge(job_skills_df, on = 'job_id', how = 'left')
+merged_df = merged_df.merge(skills_df, on = 'skill_abr', how = 'left')
+
+merged_df.head()
+
+## Filtering Data
+
+merged_df['avg_salary'] = (merged_df['max_salary'] + merged_df['min_salary']) / 2
+
+merged_df.head()
+
+merged_df = merged_df.dropna(subset =['avg_salary'])
+
+merged_df.shape
+
+merged_df.isna().sum()
+
+# Replace NaN value with 0: Remote Allowed Yes = 1, Remote Allowed No = 0
+
+merged_df['remote_allowed'] = merged_df['remote_allowed'].fillna(0)
+
+merged_df = merged_df.dropna(subset =['formatted_experience_level','zip_code',
+                                     'company_size', 'company_name', 'speciality','state'])
+
+merged_df['formatted_work_type'].value_counts()
+
+# Keep only full time jobs
+merged_df = merged_df[merged_df['formatted_work_type'].isin(['Full-time', 'Contract', 'Part-time'])]
+
+# Keep only US countries since it represents 93% of the dataset
+
+merged_df = merged_df[merged_df['country'] == 'US']
+merged_df = merged_df.drop(columns = ['country'])
+
+merged_df.shape
+
+## Normalization
+
+# Convert med_salary from hourly to yearly
+
+merged_df.loc[(merged_df['pay_period'] == 'HOURLY') & (merged_df['formatted_work_type'].isin(['Full-time', 'Contract'])),'avg_salary'] *= 2080
+merged_df.loc[(merged_df['pay_period'] == 'HOURLY') & (merged_df['formatted_work_type'] == 'Part-time'),'avg_salary'] *= 1040
+
+merged_df.head(100)
+
+# drop pay_period column
+
+merged_df = merged_df.drop(columns = ['pay_period','max_salary','min_salary','speciality'])
+
+merged_df.head(50)
+
+merged_df['avg_salary'].describe()
+
+# Set median of avg_salary as the cut off value
+med_avg_salary = 88400.00
+
+# Categorize into 'Low Salary' and 'High Salary'
+merged_df['salary'] = merged_df['avg_salary'].apply(
+    lambda x: 'Low Salary' if x <= med_avg_salary else 'High Salary'
+)
+
+merged_df
+
+## Duplicates
+
+duplicate_count = merged_df['job_id'].duplicated().sum()
+print(f"Number of duplicate job_id values: {duplicate_count}")
+
+# Create a job_id count column, grouby job_id and remove duplicates
+
+merged_df['job_id_count'] = merged_df.groupby('job_id').cumcount() + 1
+merged_df = merged_df[merged_df['job_id_count'] <= 1].drop(columns=['job_id_count'])
+
+merged_df
+
+merged_df['salary'].value_counts()
+
+# Define state mapping
+
+state_mapping = {
+    # Standard abbreviations
+    'CA': 'CA', 'FL': 'FL', 'VA': 'VA', 'IL': 'IL', 'NJ': 'NJ', 'GA': 'GA', 'MI': 'MI',
+    'NY': 'NY', 'MA': 'MA', 'IN': 'IN', 'WA': 'WA', 'AZ': 'AZ', 'PA': 'PA', 'MN': 'MN',
+    'MD': 'MD', 'TN': 'TN', 'CO': 'CO', 'CT': 'CT', 'UT': 'UT', 'TX': 'TX', 'HI': 'HI',
+    'NC': 'NC', 'WI': 'WI', 'OR': 'OR', 'OH': 'OH', 'MO': 'MO', 'IA': 'IA', 'NE': 'NE',
+    'DC': 'DC', 'KY': 'KY', 'NH': 'NH', 'LA': 'LA', 'NV': 'NV', 'AR': 'AR', 'SD': 'SD',
+    'OK': 'OK', 'SC': 'SC', 'KS': 'KS', 'AK': 'AK', 'AL': 'AL', 'NM': 'NM', 'ID': 'ID',
+    'RI': 'RI', 'MT': 'MT', 'ND': 'ND', 'DE': 'DE', 'WY': 'WY', 'ME': 'ME',
+
+    # Variants and alternate formats
+    'New York': 'NY', 'New York, NY': 'NY', 'New York (NY)': 'NY', 'New york': 'NY',
+    'Florida': 'FL', 'Virginia': 'VA', 'Illinois': 'IL', 'Georgia': 'GA',
+    'Michigan': 'MI', 'Massachusetts': 'MA', 'Indiana': 'IN', 'Washington': 'WA',
+    'California': 'CA', 'Minnesota': 'MN', 'Connecticut': 'CT', 'Utah': 'UT',
+    'New Jersey': 'NJ', 'Texas': 'TX', 'North Carolina': 'NC', 'Wisconsin': 'WI',
+    'Colorado': 'CO', 'Ohio': 'OH', 'Missouri': 'MO', 'Arizona': 'AZ', 'Iowa': 'IA',
+    'Kentucky': 'KY', 'Louisiana': 'LA', 'Maryland': 'MD', 'Oregon': 'OR', 'Nevada': 'NV',
+    'Arkansas': 'AR', 'Hawaii': 'HI', 'Kansas': 'KS', 'Nebraska': 'NE', 'Oklahoma': 'OK',
+    'Alabama': 'AL', 'South Dakota': 'SD', 'South Carolina': 'SC', 'Idaho': 'ID',
+    'Montana': 'MT', 'New Mexico': 'NM', 'Rhode Island': 'RI', 'Maine': 'ME',
+    'Delaware': 'DE', 'Alaska': 'AK',
+
+    # Variants with different cases and extra text
+    'ky': 'KY', 'Ky': 'KY', 'md': 'MD', 'oh': 'OH', 'ga': 'GA', 'Hi': 'HI', 'mo': 'MO',
+    'ny': 'NY', 'ca': 'CA', 'Fl': 'FL', 'Il': 'IL', 'Ca': 'CA', 'Ga.': 'GA',
+    'TEXAS': 'TX', 'CALIFORNIA': 'CA', 'NEW YORK': 'NY', 'NEW JERSEY': 'NJ',
+    'DISTRICT OF COLUMBIA': 'DC', 'D.C.': 'DC', 'CO - Colorado': 'CO',
+    'CA - California': 'CA', 'WISCONSIN': 'WI', 'MASSACHUSETTS': 'MA',
+    'Louisianna': 'LA', 'Pa': 'PA', '01824': 'REMOVE', '55077': 'REMOVE',
+    'Plymouth Meeting, PA,': 'PA', 'Colorado/Utah': 'CO', 'Greater London': 'REMOVE',
+    'Pennsylvania': 'PA', 'Tennessee': 'TN', 'District of Columbia': 'DC',
+    'New Hampshire': 'NH', 'tx': 'TX', 'Va': 'VA',
+
+    # Handle invalid or ambiguous entries
+    'globally': 'REMOVE', 'Global': 'REMOVE', '0': 'REMOVE', '94086': 'REMOVE'
+}
+
+# Apply mapping
+merged_df['state'] = merged_df['state'].str.strip()  # Remove extra spaces
+merged_df['state'] = merged_df['state'].replace(state_mapping)
+
+# Remove invalid rows
+merged_df = merged_df[merged_df['state'] != 'REMOVE']
+
+# Verify results
+print(merged_df['state'].unique())
+print(f"Number of unique states after preprocessing: {merged_df['state'].nunique()}")
+
+# Decision Tree
+
+import os
+from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import RandomizedSearchCV, GridSearchCV
+from sklearn import tree
+from sklearn.metrics import accuracy_score,confusion_matrix, classification_report,f1_score,roc_curve, auc
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+#X = merged_df.drop(columns=['salary','job_id','pay_period','company_id','med_salary','formatted_work_type'])
+
+tree_df = merged_df.copy()
+tree_df.reset_index(drop=True, inplace=True)
+
+tree_df = tree_df.drop(columns=['job_id','company_name',
+                          'zip_code','skill_abr',
+                          'avg_salary', 'company_id','industry_id',
+                            'city','title'])
+
+tree_df.head(100)
+
+unique_levels = tree_df['formatted_experience_level'].unique()
+
+# Print the unique titles
+print(f"Number of unique : {len(unique_levels)}")
+print(unique_levels)
+
+# Change 'formatted_experience_level' type to represent categories as numbers,
+
+experience_mapping = {
+    'Internship': 0,
+    'Entry level': 1,
+    'Associate': 2,
+    'Mid-Senior level': 3,
+    'Executive': 4,
+    'Director': 5
+}
+
+tree_df['formatted_experience_level'] = tree_df['formatted_experience_level'].map(experience_mapping)
+
+tree_df
+
+# Create dummy variables for 'formatted_work_type'
+
+tree_df = pd.get_dummies(tree_df, columns=['formatted_work_type','state','industry','skill_name'], drop_first=True)
+
+# Convert all boolean columns to integers (0 and 1)
+tree_df = tree_df.astype({col: 'int' for col in tree_df.select_dtypes('bool').columns})
+
+tree_df
+
+X = tree_df.drop(columns=['salary'])
+y = tree_df['salary']
+print(X.shape)
+print(y.shape)
+
+tree_df['salary'].value_counts()
+
+# Split 80-20: 80% training and 20% testing
+
+x_train,x_test,y_train,y_test = train_test_split(X,y, test_size=0.2, random_state=42)
+model = tree.DecisionTreeClassifier(criterion='entropy')
+model.fit(x_train,y_train)
+
+y_train_pred = model.predict(x_train)
+y_test_pred  = model.predict(x_test)
+
+classes = ['High Salary','Low Salary']
+
+def plot_confusionmatrix(y_train_pred,y_train,dom):
+    print(f'{dom} Confusion matrix')
+    cf = confusion_matrix(y_train_pred,y_train)
+    # When annot is set to True, it adds text annotations to each cell of the heatmap.
+    sns.heatmap(cf,annot=True,yticklabels=classes,xticklabels=classes,cmap='Blues', fmt='g')
+    plt.tight_layout()
+    plt.show()
+
+print(f'Train score {accuracy_score(y_train_pred,y_train)}')
+print(f'Test score {accuracy_score(y_test_pred,y_test)}')
+#plot_confusionmatrix(y_train_pred,y_train,dom='Train') # apply the function plot_confusionmatrix
+plot_confusionmatrix(y_test_pred,y_test,dom='Test')
+
+print("\nClassification Report:\n", classification_report(y_test, y_test_pred))
+
+# Transform y_test to binary labels
+y_test_numeric = y_test.map({'High Salary': 1, 'Low Salary': 0})
+
+# Extract probabilities for class 1 (High Salary)
+y_test_prob = model.predict_proba(x_test)[:, 0]
+
+# Calculate AUC
+fpr, tpr, thresholds = roc_curve(y_test_numeric, y_test_prob, pos_label=1)
+roc_auc = auc(fpr, tpr)
+print(f"AUC Score: {roc_auc:.2f}")
+
+plt.figure(figsize=(7,7))
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'b', label = 'AUC Decision Tree un-processed = %0.2f'  % roc_auc)
+
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+
+### Pre & Post Pruning Decision Tree
+
+params = {'max_depth': [2,4,6,8,10,12],
+         'min_samples_split': [2,3,4],
+         'min_samples_leaf': [1,2]}
+
+clf = tree.DecisionTreeClassifier()
+gcv = GridSearchCV(estimator=clf,param_grid=params)
+gcv.fit(x_train,y_train)
+
+# Pre Pruning
+model_pre_pruning = gcv.best_estimator_
+print("Best Fit Model")
+print(model_pre_pruning)
+
+model_pre_pruning.fit(x_train,y_train)
+y_train_pred = model_pre_pruning.predict(x_train)
+y_test_pred = model_pre_pruning.predict(x_test)
+
+print(f'Train score {accuracy_score(y_train_pred,y_train)}')
+print(f'Test score {accuracy_score(y_test_pred,y_test)}')
+#plot_confusionmatrix(y_train_pred,y_train,dom='Train')
+plot_confusionmatrix(y_test_pred,y_test,dom='Test')
+
+print("\nClassification Report:\n", classification_report(y_test, y_test_pred))
+
+# Transform y_test to binary labels
+y_test_numeric = y_test.map({'High Salary': 1, 'Low Salary': 0})
+
+# Extract probabilities for class 1 (High Salary)
+y_test_prob = model_pre_pruning.predict_proba(x_test)[:, 0]
+
+# Calculate AUC
+fpr, tpr, thresholds = roc_curve(y_test_numeric, y_test_prob, pos_label=1)
+roc_auc = auc(fpr, tpr)
+print(f"AUC Score: {roc_auc:.2f}")
+
+plt.figure(figsize=(7,7))
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'b', label = 'AUC Decision Tree pre-pruning = %0.2f'  % roc_auc)
+
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+
+# Post Pruning
+path = model.cost_complexity_pruning_path(x_train, y_train)
+ccp_alphas, impurities = path.ccp_alphas, path.impurities
+print(ccp_alphas)
+
+# For each alpha we will append our model to a list
+models = []
+for ccp_alpha in ccp_alphas:
+    model = tree.DecisionTreeClassifier(random_state=42, ccp_alpha=ccp_alpha)
+    model.fit(x_train, y_train)
+    models.append(model)
+
+train_acc = []
+test_acc  = []
+
+for m in models:
+    y_train_pred = m.predict(x_train)
+    y_test_pred = m.predict(x_test)
+    train_acc.append(accuracy_score(y_train_pred,y_train))
+    test_acc.append(accuracy_score(y_test_pred,y_test))
+
+plt.scatter(ccp_alphas,train_acc)
+plt.scatter(ccp_alphas,test_acc)
+plt.plot(ccp_alphas,train_acc,label='train_accuracy',drawstyle="steps-post")
+plt.plot(ccp_alphas,test_acc,label='test_accuracy',drawstyle="steps-post")
+plt.legend()
+plt.title('Accuracy vs Alpha')
+plt.show()
+
+model_post_pruning = tree.DecisionTreeClassifier(random_state=42,ccp_alpha=0.020)
+model_post_pruning.fit(x_train,y_train)
+y_train_pred = model_post_pruning .predict(x_train)
+y_test_pred = model_post_pruning .predict(x_test)
+
+print(f'Train score {accuracy_score(y_train_pred,y_train)}')
+print(f'Test score {accuracy_score(y_test_pred,y_test)}')
+#plot_confusionmatrix(y_train_pred,y_train,dom='Train')
+plot_confusionmatrix(y_test_pred,y_test,dom='Test')
+
+print("\nClassification Report:\n", classification_report(y_test, y_test_pred))
+
+# Transform y_test to binary labels
+y_test_numeric = y_test.map({'High Salary': 1, 'Low Salary': 0})
+
+# Extract probabilities for class 1 (High Salary)
+y_test_prob = model_post_pruning.predict_proba(x_test)[:, 0]
+
+# Calculate AUC
+fpr, tpr, thresholds = roc_curve(y_test_numeric, y_test_prob, pos_label=1)
+roc_auc = auc(fpr, tpr)
+print(f"AUC Score: {roc_auc:.2f}")
+
+plt.figure(figsize=(7,7))
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'b', label = 'AUC Decision Tree post pruning = %0.2f'  % roc_auc)
+
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+
+### Smote Decision Tree
+
+!pip install imbalanced-learn
+from imblearn.over_sampling import SMOTE
+
+print(y.value_counts())
+
+smote = SMOTE(sampling_strategy=0.90, random_state=42)
+X_resampled, y_resampled = smote.fit_resample(X, y)
+
+X_train_resampled, X_test_resampled, y_train_resampled, y_test_resampled = train_test_split(X_resampled, y_resampled, test_size=0.20, random_state=42)
+
+smote_model = tree.DecisionTreeClassifier(criterion="entropy")
+smote_model.fit(X_train_resampled, y_train_resampled)
+
+y_train_pred_resampled = smote_model.predict(X_train_resampled)
+y_test_pred_resampled = smote_model.predict(X_test_resampled)
+
+def plot_confusionmatrix(y_train_pred_resampled, y_train_resampled, dom):
+    print(f'{dom} Confusion Matrix')
+    cf = confusion_matrix(y_train_resampled, y_train_pred_resampled)
+    sns.heatmap(cf, annot=True, yticklabels = classes, xticklabels = classes, cmap = 'Blues', fmt = 'g')
+    plt.tight_layout()
+    plt.xlabel("Predicted Label")
+    plt.ylabel("True Label")
+    plt.show()
+
+print(f'Train score {accuracy_score(y_train_pred_resampled, y_train_resampled)}')
+print(f'Test score {accuracy_score(y_test_pred_resampled, y_test_resampled)}')
+plot_confusionmatrix(y_test_pred_resampled, y_test_resampled, dom = 'Test')
+
+print("\nClassification Report:\n", classification_report(y_test_resampled, y_test_pred_resampled))
+
+# Transform y_test to binary labels
+y_test_numeric = y_test.map({'High Salary': 1, 'Low Salary': 0})
+
+# Extract probabilities for class 1 (High Salary)
+y_test_prob = smote_model.predict_proba(x_test)[:, 0]
+
+# Calculate AUC
+fpr, tpr, thresholds = roc_curve(y_test_numeric, y_test_prob, pos_label=1)
+roc_auc = auc(fpr, tpr)
+print(f"AUC Score: {roc_auc:.2f}")
+
+plt.figure(figsize=(7,7))
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'b', label = 'AUC Decision Tree SMOTE = %0.2f'  % roc_auc)
+
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+
+# Random Forest
+
+forest_df = tree_df.copy()
+
+forest_df
+
+### Random Forest: without pre-processing
+
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score
 
-df = pd.read_csv("linkedin_jobs.csv")
-X = df.drop("salary", axis=1)
-y = df["salary"]
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-model = RandomForestClassifier()
-model.fit(X_train, y_train)
-print("Accuracy:", accuracy_score(y_test, model.predict(X_test)))
-    </code></pre>
+# Define features (X) and target variable (y)
+X = forest_df.drop(columns=['salary'])  # Exclude target column
+y = forest_df['salary']
+
+# Split data into training and testing sets (80-20 split)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize the Random Forest Classifier
+rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+
+# Train the model
+rf_model.fit(x_train, y_train)
+
+# Predict on training data
+y_train_pred = rf_model.predict(x_train)
+
+# Predict on testing data
+y_test_pred = rf_model.predict(x_test)
+
+print(f'Train score {accuracy_score(y_train_pred,y_train)}')
+print(f'Test score {accuracy_score(y_test_pred,y_test)}')
+plot_confusionmatrix(y_test_pred,y_test,dom='Test')
+
+print("\nClassification Report:\n", classification_report(y_test, y_test_pred))
+
+# Transform y_test to binary labels
+y_test_numeric = y_test.map({'High Salary': 1, 'Low Salary': 0})
+
+# Extract probabilities for class 1 (High Salary)
+y_test_prob = rf_model.predict_proba(x_test)[:, 0]
+
+# Calculate AUC
+fpr, tpr, thresholds = roc_curve(y_test_numeric, y_test_prob, pos_label=1)
+roc_auc = auc(fpr, tpr)
+print(f"AUC Score: {roc_auc:.2f}")
+
+plt.figure(figsize=(7,7))
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'b', label = 'AUC Random Forest without pre-processing = %0.2f'  % roc_auc)
+
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+
+### Random Forest: Feature Reduction
+
+# Train the Random Forest
+gini_model = RandomForestClassifier(n_estimators=100,criterion='gini', random_state=42)
+gini_model.fit(X, y)
+
+# Extract feature importances
+importances = gini_model.feature_importances_
+feature_importances = pd.DataFrame({'Feature': X.columns, 'Importance': importances})
+feature_importances = feature_importances.sort_values(by='Importance', ascending=False)
+
+top_features = feature_importances.head(20)
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Importance', y='Feature', data=top_features)
+plt.title('Top Features by Gini Importance')
+plt.xlabel('Importance Score')
+plt.ylabel('Feature')
+plt.show()
+
+# Select important features
+selected_features = feature_importances[feature_importances['Importance'] > 0.025]['Feature']
+X_selected = X[selected_features]
+
+# Retrain the model with selected features
+x_train, x_test, y_train, y_test = train_test_split(X_selected, y, test_size=0.2, random_state=42)
+gini_model = RandomForestClassifier(n_estimators=100, criterion='gini', random_state=42)
+gini_model.fit(x_train, y_train)
+
+y_train_pred = gini_model.predict(x_train)
+y_test_pred  = gini_model.predict(x_test)
+
+selected_features
+
+print(f'Train score {accuracy_score(y_train_pred,y_train)}')
+print(f'Test score {accuracy_score(y_test_pred,y_test)}')
+plot_confusionmatrix(y_test_pred,y_test,dom='Test')
+
+print("\nClassification Report:\n", classification_report(y_test, y_test_pred))
+
+# Transform y_test to binary labels
+y_test_numeric = y_test.map({'High Salary': 1, 'Low Salary': 0})
+
+# Extract probabilities for class 1 (High Salary)
+y_test_prob = gini_model.predict_proba(x_test)[:, 0]
+
+# Calculate AUC
+fpr, tpr, thresholds = roc_curve(y_test_numeric, y_test_prob, pos_label=1)
+roc_auc = auc(fpr, tpr)
+print(f"AUC Score: {roc_auc:.2f}")
+
+plt.figure(figsize=(7,7))
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'b', label = 'AUC Random Forest Feature Selection = %0.2f'  % roc_auc)
+
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+
+### Random Forest Boosting
+
+from sklearn.ensemble import AdaBoostClassifier
+
+# AdaBoost
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42) # Split the data into training and testing sets
+
+# Create an AdaBoost classifier
+boost_model = AdaBoostClassifier(n_estimators=100, random_state=0)
+
+boost_model.fit(X_train, y_train) # Train the model on the training data
+
+y_train_pred = boost_model.predict(X_train)
+y_test_pred  = boost_model.predict(X_test)
+
+print(f'Train score {accuracy_score(y_train_pred,y_train)}')
+print(f'Test score {accuracy_score(y_test_pred,y_test)}')
+plot_confusionmatrix(y_test_pred,y_test,dom='Test')
+
+print("\nClassification Report:\n", classification_report(y_test, y_test_pred))
+
+# Transform y_test to binary labels
+y_test_numeric = y_test.map({'High Salary': 1, 'Low Salary': 0})
+
+# Extract probabilities for class 1 (High Salary)
+y_test_prob = boost_model.predict_proba(X_test)[:, 0]
+
+# Calculate AUC
+fpr, tpr, thresholds = roc_curve(y_test_numeric, y_test_prob, pos_label=1)
+roc_auc = auc(fpr, tpr)
+print(f"AUC Score: {roc_auc:.2f}")
+
+plt.figure(figsize=(7,7))
+plt.title('Receiver Operating Characteristic')
+plt.plot(fpr, tpr, 'b', label = 'AUC Random Forest Ada Boosting = %0.2f'  % roc_auc)
+
+plt.legend(loc = 'lower right')
+plt.plot([0, 1], [0, 1],'r--')
+plt.xlim([0, 1])
+plt.ylim([0, 1])
+plt.ylabel('True Positive Rate')
+plt.xlabel('False Positive Rate')
+plt.show()
+    </pre>
   </details>
-
+  <p>You can also <a href="data/LinkedIn%20salary%20classification.py" download>download the full Python script here</a>.</p>
+  
   <a class="back-home" href="index.html">← Back to Home</a>
 </body>
 </html>
