@@ -37,6 +37,23 @@
       display: block;
       font-weight: bold;
     }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -67,7 +84,7 @@
 <p><strong>Total Rows:</strong> 8,763</p>
 
 <h3>Data Dictionary - Data</h3>
-<table>
+<table border="1">
   <thead>
     <tr>
       <th>Variable Name</th>
@@ -106,7 +123,7 @@
 </table>
 
 <h3>Data Dictionary - Data1</h3>
-<table>
+<table border="1">
   <thead>
     <tr>
       <th>Variable Name</th>
@@ -147,22 +164,24 @@
 </table>
 
 <h2>📈 Correlation Analysis</h2>
-<figure>
-  <img src="images/heartattack/demographic_correlation.png" alt="Demographic Correlation Heatmap" width="500">
-  <figcaption><strong>Demographic Factors:</strong> The correlation heatmap shows virtually no correlation between demographic variables and heart attack risk.</figcaption>
-</figure>
-<figure>
-  <img src="images/heartattack/physiology_correlation.png" alt="Physiological Correlation Heatmap" width="500">
-  <figcaption><strong>Physiological & Clinical Factors:</strong> The highest positive correlations are found with <em>Cholesterol</em> and <em>Systolic</em> blood pressure.</figcaption>
-</figure>
-<figure>
-  <img src="images/heartattack/medical_correlation.png" alt="Medical History Correlation Heatmap" width="500">
-  <figcaption><strong>Medical History Factors:</strong> The strongest positive correlation is observed with <em>Diabetes</em>.</figcaption>
-</figure>
-<figure>
-  <img src="images/heartattack/lifestyle_correlation.png" alt="Lifestyle Correlation Heatmap" width="500">
-  <figcaption><strong>Lifestyle Factors:</strong> The most notable negative correlation is seen with <em>Sleep Hours Per Day</em>.</figcaption>
-</figure>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  <figure style="flex: 1 1 45%;">
+    <img src="images/heartattack/demographic_correlation.png" alt="Demographic Correlation Heatmap" style="width: 100%; height: auto;">
+    <figcaption><strong>Demographic Factors:</strong> The correlation heatmap shows virtually no correlation between demographic variables and heart attack risk.</figcaption>
+  </figure>
+  <figure style="flex: 1 1 45%;">
+    <img src="images/heartattack/physiology_correlation.png" alt="Physiological Correlation Heatmap" style="width: 100%; height: auto;">
+    <figcaption><strong>Physiological & Clinical Factors:</strong> The highest positive correlations are found with <em>Cholesterol</em> and <em>Systolic</em> blood pressure.</figcaption>
+  </figure>
+  <figure style="flex: 1 1 45%;">
+    <img src="images/heartattack/medical_correlation.png" alt="Medical History Correlation Heatmap" style="width: 100%; height: auto;">
+    <figcaption><strong>Medical History Factors:</strong> The strongest positive correlation is observed with <em>Diabetes</em>.</figcaption>
+  </figure>
+  <figure style="flex: 1 1 45%;">
+    <img src="images/heartattack/lifestyle_correlation.png" alt="Lifestyle Correlation Heatmap" style="width: 100%; height: auto;">
+    <figcaption><strong>Lifestyle Factors:</strong> The most notable negative correlation is seen with <em>Sleep Hours Per Day</em>.</figcaption>
+  </figure>
+</div>
 
 <h2>🛠️ Methodology</h2>
 <p>
@@ -205,17 +224,17 @@
 <p>
   When evaluating regional performance, the k-Nearest Neighbors (k-NN) had better accuracy for country-specific subsets, especially inItaly (68%), Japan (66%). Optimal values of <em>k</em> were identified through iterative tuning for each region, and performance is visualized in the following charts:
 </p>
-<ul>
-  <li><img src="images/heartattack/knn_Italy.png" alt="KNN Accuracy - Italy" width="500"></li>
-  <li><img src="images/heartattack/knn_China.png" alt="KNN Accuracy - China" width="500"></li>
-  <li><img src="images/heartattack/knn_US.png" alt="KNN Accuracy - United States" width="500"></li>
-  <li><img src="images/heartattack/knn_Japan.png" alt="KNN Accuracy - Japan" width="500"></li>
-</ul>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+  <img src="images/heartattack/knn_Italy.png" alt="KNN Accuracy - Italy" style="width: 48%; height: auto;">
+  <img src="images/heartattack/knn_China.png" alt="KNN Accuracy - China" style="width: 48%; height: auto;">
+  <img src="images/heartattack/knn_US.png" alt="KNN Accuracy - United States" style="width: 48%; height: auto;">
+  <img src="images/heartattack/knn_Japan.png" alt="KNN Accuracy - Japan" style="width: 48%; height: auto;">
+</div>
 <p>
   The SVM performance across all test samples is shown below:
 </p>
 <p>
-  <img src="images/heartattack/SVM.png" alt="SVM Accuracy" width="500">
+  <img src="images/heartattack/SVM.png" alt="SVM Accuracy" style="max-width: 100%; height: auto;">
 </p>
 
 <h2>💡 Insights</h2>
@@ -268,7 +287,7 @@
   <h3>📜 Full R Script</h3>
   <details>
     <summary>Click to expand the full R code</summary>
-    <pre style="white-space: pre-wrap; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; overflow-x: auto;">
+    <pre style="white-space: pre-wrap; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; overflow-x: auto; font-family: 'Courier New', Courier, monospace;">
 # R script begins here
 #-------------------------------------------------------------
 # Predictive Analytics Project: Heart Attack Risk Prediction

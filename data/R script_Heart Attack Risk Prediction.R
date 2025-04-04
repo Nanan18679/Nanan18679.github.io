@@ -1,6 +1,6 @@
 #-------------------------------------------------------------
-# Predictive Analytics Project: Heart Attack Risk Prediction
-
+# Predictive Analytics Group Project: Heart Attack Risk Prediction
+# Team 5: Vy Nguyen, Yanan Sun, Becky Wang, Xinying Wu
 #
 # Agenda:
 #       Part 1: Data Preprocessing
