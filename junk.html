@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Junk Email Detect Mechanism</title>
+  <title>Influencer Identification and Profitability Analysis on Twitch using Social Network Analysis</title>
   <link rel="stylesheet" href="stylesheet.css">
   <style>
     body {
@@ -40,28 +40,159 @@
   </style>
 </head>
 <body>
-  <h1>Junk Email Detect Mechanism</h1>
+  <h1>Influencer Identification and Profitability Analysis on Twitch using Social Network Analysis</h1>
 
-  <h2>📌 Project Purpose</h2>
-  <p>[Write your project purpose here...]</p>
+  <h2>📌 Project Introduction</h2>
+  <p>This project is based on a case study from Harvard Business Publishing titled “Who is the Right Influencer? A Social Network Analysis.” The case centers around a fictional company, Space Games Inc. (SGI), which is preparing to launch a new game and must choose the most effective influencers on Twitch. Rather than selecting influencers based solely on follower count, this analysis uses Social Network Analysis (SNA) to uncover deeper insights about influence, reach, and network dynamics within the Twitch community.</p>
+  <p>This project provides a structured approach that combines data visualization (using Gephi) and profitability modeling to answer questions like:</p>
+  <ul>
+    <li>Who are the most influential Twitch streamers?</li>
+    <li>How are they positioned within the network?</li>
+    <li>What ROI can be expected from partnering with them?</li>
+  </ul>
 
-  <h2>📊 Dataset Overview</h2>
-  <p>[Describe the dataset...]</p>
+  <h2>📊 Exploratory Data Summary</h2>
+  <p>The dataset contains information on 7,126 Twitch streamers and 3,524 connections (follows) between them. It includes variables such as:</p>
+  <ul>
+    <li><strong>Days Active:</strong> The number of days a streamer has been active (mean: 1525.22)</li>
+    <li><strong>Views:</strong> Total number of views per streamer (mean: 193470.2)</li>
+    <li><strong>Affiliate Percentage:</strong> 5% of streamers are part of the Twitch affiliate program</li>
+    <li><strong>Mature Content Percentage:</strong> 55% of streamers produce mature content</li>
+    <li><strong>Average Follower Connections:</strong> Each streamer has an average of 4.96 followers</li>
+  </ul>
+  <p>This data provides a rich foundation for understanding the structure and behavior of streamers on Twitch, allowing for deeper network-based analysis.</p>
 
-  <h2>🛠️ Methodology</h2>
-  <p>[Explain your approach/methods used...]</p>
+  <h2>🔍 Additional Exploratory Visuals</h2>
+  <h3>Distribution of Twitch Channel Views</h3>
+  <img src="images/cust/channel_distribution.png" alt="Twitch Channel Views Distribution" width="600">
+  <p>Most streamers have 1,000–50,000 views, with a peak around 10,000. Only a few creators achieve millions of views, suggesting a small group drives most engagement.</p>
 
-  <h2>📌 Summary</h2>
-  <p>[Summarize your findings...]</p>
+  <h3>Distribution of Affiliate vs Non-Affiliate Streamers</h3>
+  <img src="images/cust/affiliate_distribution.png" alt="Affiliate vs Non-Affiliate Streamers" width="600">
+  <p>Majority of streamers are non-affiliates, meaning they haven’t joined Twitch’s affiliate program. This indicates that few meet the program’s eligibility requirements.</p>
 
-  <h2>💡 Insights</h2>
-  <p>[Key insights and takeaways...]</p>
+  <h3>Proportion of Channels with Mature Content</h3>
+  <img src="images/cust/channel_proportion.png" alt="Proportion of Mature Content Channels" width="600">
+  <p>Over half of Twitch streamers label their content as mature, suggesting that adult-oriented themes dominate the platform.</p>
+
+  <h3>Distribution of Days Active on Twitch</h3>
+  <img src="images/cust/dayactive_distribution.png" alt="Days Active Distribution" width="600">
+  <p>Most streamers have been active between 3 to 7 years, with fewer new streamers joining recently — suggesting a maturing platform.</p>
+
+  <h3>Views Distribution based on Affiliate Status</h3>
+  <img src="images/cust/view_distribution.png" alt="Views by Affiliate Status" width="600">
+  <p>Affiliates typically have higher median views, indicating stronger engagement. However, non-affiliates show more variation with some very high outliers.</p>
+
+  <h2>🌐 Network Structure Analysis</h2>
+
+  <h3>📎 Degree Distribution</h3>
+  <p>Each Twitch streamer is connected to an average of 4.96 other streamers. This suggests a relatively sparse network, so identifying streamers with much higher degrees may be critical for maximizing influence.</p>
+  <img src="images/cust/degree.png" alt="Degree Distribution" width="600">
+  <p>In-degree and out-degree distributions both follow a long-tail pattern, with a few streamers receiving or following many others.</p>
+
+  <h3>📎 Graph Distance</h3>
+  <p>The network is undirected with a diameter of 10, radius of 6, and average path length of 3.68. This suggests it takes around 3–4 steps to connect any two streamers, indicating a moderately connected structure.</p>
+
+  <h3>📎 Centrality Measures</h3>
+  <p>Various centrality measures were computed to identify key influencers:</p>
+  <ul>
+    <li><strong>Betweenness, Closeness, Harmonic, Eccentricity:</strong> Most streamers exhibit low centrality values, with very few acting as central bridges or hubs.</li>
+    <li><strong>Eigenvector Centrality:</strong> Stabilized after 100 iterations with a sum change of 0.0723, confirming convergence.</li>
+  </ul>
+  <img src="images/cust/eigenvector.png" alt="Eigenvector Centrality Distribution" width="600">
+
+  <h3>📎 Clustering Coefficient</h3>
+  <p>The average clustering coefficient is 0.156 with 29,266 total triangles, suggesting that small tightly-knit communities exist, though overall clustering is low.</p>
+  <img src="images/cust/clustering.png" alt="Clustering Coefficient Distribution" width="600">
+
+  <h2>🎮 Top 3 Influencers for New Video Game Launch</h2>
+  <p>To support the marketing campaign for Space Games Inc.’s upcoming title, we identified <strong>three key Twitch influencers</strong>: <strong>Channel ID: 23735582, 15310631, and 20786541</strong>. These were selected using a multi-metric evaluation based on their <strong>network position and audience reach</strong>:</p>
+
+  <h3>📌 Metric 1 – Betweenness Centrality</h3>
+  <p>This measures how frequently a streamer appears on the shortest paths between other users in the network. A high betweenness score suggests the streamer is a <strong>crucial connector</strong> who can efficiently spread information.</p>
+  <p><strong>Channel 23735582, 15310631, and 20786541</strong> rank top in this metric.</p>
+  <img src="images/cust/betweenness.png" alt="Betweenness Centrality" width="600">
+
+  <h3>📌 Metric 2 – Eigenvector Centrality</h3>
+  <p>This metric considers both the number and <strong>importance of connections</strong>. A streamer with high eigenvector centrality is well-connected to <strong>other influential users</strong>, amplifying their total reach.</p>
+  <p><strong>Channel 23735582 and 15310631</strong> have the two highest values here.</p>
+  <img src="images/cust/eigenvector_centrality.png" alt="Eigenvector Centrality" width="600">
+
+  <h3>📌 Metric 3 – Degree</h3>
+  <p>Degree represents the <strong>number of direct follower/following connections</strong> a streamer has. A higher degree indicates a <strong>broader presence</strong> in the network and greater exposure.</p>
+  <p><strong>Channel 20786541, 23735582, and 15310631</strong> lead this metric.</p>
+  <img src="images/cust/degree_metric.png" alt="Degree Metric" width="600">
+
+  <h3>📌 Metric 4 – View Count</h3>
+  <p>This reflects <strong>total audience attention</strong> a streamer has attracted. A high view count suggests a streamer already commands strong engagement.</p>
+  <p><strong>Channel 20786541, 23735582, and 15310631</strong> are ranked 2nd–4th by view count.</p>
+  <img src="images/cust/view.png" alt="View Count Metric" width="600">
+
+  <p><strong>Conclusion:</strong> While each metric captures different aspects of influence, these three streamers Channel ID: 23735582, 15310631, and 20786541 <strong>consistently rank at the top</strong> . They offer a <strong>strategic mix</strong> of reach, authority, and audience engagement—making them ideal partners for the upcoming campaign.</p>
+
+  <h2>💰 Expected Profitability Analysis</h2>
+  <p>To estimate the financial return of partnering with each influencer, we follow a four-step ROI calculation process:</p>
+  <ol>
+    <li><strong>Engaged Users = Views × Engagement Rate:</strong> We assume an engagement rate of 5%, based on industry benchmarks.</li>
+    <li><strong>Converted Users = Engaged Users × Conversion Rate:</strong> We apply a 3% conversion rate, as seen in gaming influencer campaigns.</li>
+    <li><strong>Expected Revenue = Converted Users × Revenue per Purchase:</strong> Revenue per purchase is assumed to be $30.</li>
+    <li><strong>Final Profit = Expected Revenue − Other Costs:</strong> This includes an influencer fee of $7,000 and additional marketing expenses of $3,000.</li>
+  </ol>
+  <p><strong>Assumptions Used:</strong></p>
+  <ul>
+    <li>Engagement Rate: 5%</li>
+    <li>Conversion Rate: 3%</li>
+    <li>Revenue per Purchase: $30</li>
+    <li>Influencer Cost: $7,000</li>
+    <li>Marketing Expenses: $3,000</li>
+  </ul>
+  <p><strong>Note:</strong> The views for each influencer were sourced from the Gephi-exported data table. ROI assumptions are based on current industry standards and publicly available benchmark data.</p>
+  <h3>📜 ROI Calculation Script</h3>
+  <details>
+    <summary>Click to expand the full Python code</summary>
+    <pre style="white-space: pre-wrap; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; overflow-x: auto; font-family: monospace;">
+import pandas as pd
+
+# create influencer table
+influencers = [
+    {"Channel_ID": 23735582, "Views": 46682923},
+    {"Channel_ID": 15310631, "Views": 20253246},
+    {"Channel_ID": 20786541, "Views": 8350681},
+]
+
+# set up parameters
+engagement_rate = 0.05  # 5%
+conversion_rate = 0.03   # 3%
+revenue_per_purchase = 30  # game revenue $30
+influencer_cost = 7000  # paid to influencer
+marketing_expenses = 3000  # extra marketing fee
+
+# calculate revenue
+for influencer in influencers:
+    expected_revenue = influencer["Views"] * engagement_rate * conversion_rate * revenue_per_purchase
+    expected_profit = expected_revenue - (influencer_cost + marketing_expenses)
+
+    influencer["Expected Revenue"] = round(expected_revenue, 2)
+    influencer["Expected Profit"] = round(expected_profit, 2)
+
+df_influencers = pd.DataFrame(influencers)
+
+# show DataFrame
+display(df_influencers)
+    </pre>
+  </details>
+  <p><strong>Result Summary:</strong> Among the three influencers, <strong>Channel 23735582</strong> delivers the highest expected profit and ROI, making it the most financially promising partnership choice.</p>
 
   <h2>🧰 Tech Stack</h2>
-  <p>[Mention libraries, tools, languages...]</p>
+  <ul>
+    <li><strong>Python:</strong> Used for data processing and ROI calculations.</li>
+    <li><strong>Gephi:</strong> Network visualization and centrality metric computations.</li>
+    <li><strong>R:</strong> Exploratory data analysis and descriptive statistics.</li>
+    <li><strong>HTML/CSS:</strong> Presentation of findings and report layout.</li>
+    <li><strong>Pandas:</strong> Tabular data manipulation and reporting.</li>
+    <li><strong>Visual Studio Code:</strong> Development environment for script editing.</li>
+  </ul>
 
-  <h2>📎 Attachment</h2>
-  <p>[Link to GitHub, Tableau dashboard, or PDF report...]</p>
 
   <a class="back-home" href="index.html">← Back to Home</a>
 </body>
