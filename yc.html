@@ -43,26 +43,182 @@
   <h1>Y Combinator Database</h1>
 
   <h2>📌 Project Purpose</h2>
-  <p>[Write your project purpose here...]</p>
+  <p>This project explores startups funded by Y Combinator by creating a structured SQL database that stores detailed information about each company — like where they’re based, what industry they’re in, and the backgrounds of their founders. By organizing and analyzing the data using SQL, we aim to answer questions such as: What kinds of founders tend to build successful startups? Are certain industries or locations more likely to produce active companies? The goal is to turn raw data into useful insights that could help investors, researchers, or anyone curious about the startup world better understand what drives success in the YC ecosystem.</p>
 
-  <h2>📊 Dataset Overview</h2>
-  <p>[Describe the dataset...]</p>
+  <p>This dataset could benefit several types of users:</p>
+  <ul>
+    <li><strong>Venture Capital Firms & Angel Investors</strong> can use the data to spot patterns in successful startups, evaluate founder backgrounds, and identify promising investment opportunities.</li>
+    <li><strong>Market Research Companies</strong> might use it to track industry trends, produce startup ecosystem reports, and monitor how YC companies have evolved over time.</li>
+    <li><strong>Large Tech Companies</strong> looking for acquisitions could use the database to discover potential targets based on location, industry, or team composition.</li>
+  </ul>
 
-  <h2>🛠️ Methodology</h2>
-  <p>[Explain your approach/methods used...]</p>
+  <h2>🧱 Stage 1: Design a Conceptual Data Model</h2>
 
-  <h2>📌 Summary</h2>
-  <p>[Summarize your findings...]</p>
+  <h3>Entity Identification & Overview</h3>
+  <p>Based on the original Kaggle dataset, eight CSV files were consolidated into six core entities through data wrangling in Excel: COMPANY, FOUNDER, REGIONS, INDUSTRY, COMPANY_EXPERIENCE, and SCHOOLS. Each entity represents a real-world concept relevant to the YC startup ecosystem and serves as the foundation of our conceptual schema.</p>
 
-  <h2>💡 Insights</h2>
-  <p>[Key insights and takeaways...]</p>
+  <h3>Metadata Documentation</h3>
+  <p>Metadata was developed at both the entity and attribute level. Each table contains details such as attribute names, data types, allowed values, and example entries. This ensures data integrity, consistency, and clarity for SQL querying.</p>
+
+  <h4>Entity-Level Metadata</h4>
+  <img src="images/yc/Entity-level Metadata.png" alt="Entity-level Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+
+  <h4>Attribute-Level Metadata</h4>
+  <h5>COMPANY</h5>
+  <img src="images/yc/COMPANY_Attribute-level Metadata.png" alt="Company Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <h5>FOUNDER</h5>
+  <img src="images/yc/FOUNDER_Attribute-level Metadata.png" alt="Founder Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <h5>REGIONS</h5>
+  <img src="images/yc/REGIONS_Attribute-level Metadata.png" alt="Regions Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <h5>INDUSTRY</h5>
+  <img src="images/yc/INDUSTRIES_Attribute-level Metadata,png.png" alt="Industries Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <h5>COMPANY_EXPERIENCE</h5>
+  <img src="images/yc/COMPANIES_EXPERIENCE_Attribute-level Metadata.png" alt="Companies Experience Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <h5>SCHOOLS</h5>
+  <img src="images/yc/SCHOOLS_Attribute-level Metadata.png" alt="Schools Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+
+  <h3>Entity Relationships & Business Rules</h3>
+  <p>Relationships were mapped based on logical connections between entities. For example, a FOUNDER can attend many SCHOOLS, and each COMPANY belongs to one INDUSTRY. The business rules were formalized to reflect cardinality and data dependencies.</p>
+
+  <h4>ER Diagram & Relationship Matrix</h4>
+  <img src="images/yc/ERD_and_Relationship.png" alt="ER Diagram and Relationships" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  
+  <h4>Business Rules</h4>
+  <ul>
+    <li><strong>For Industry entity:</strong> Each Industry may have multiple Sub_Industries, but a Sub_Industry must belong to exactly one Industry. This rule prevents a Sub_Industry from existing without being associated with an Industry.</li>
+    <li><strong>For Founder entity:</strong> Each Founder must have a unique HN_ID assigned to them. This rule prevents any registration from inserting a Founder without an HN_ID or with a duplicate HN_ID.</li>
+    <li><strong>For Company entity:</strong> Each Company must have a unique Company_ID that serves as its identifier. This rule causes any attempt to insert a Company without a Company_ID or with a duplicate Company_ID to be rejected.</li>
+    <li><strong>For Region entity:</strong> Each Company must belong to exactly one Region, and each Region must have an associated State, Country, and City. This rule enforces that no company can exist without being assigned a Region and ensures complete geographical data for every company on Y Combinator.</li>
+  </ul>
+  
+  <h4>💡 Relationship Refinement Example: FOUNDER & SCHOOL via DIPLOMA</h4>
+  <p>Originally, a many-to-many relationship existed between <strong>FOUNDER</strong> and <strong>SCHOOL</strong>. To normalize this relationship and better capture attributes such as degree type, a bridge entity <strong>DIPLOMA</strong> was introduced.</p>
+  <img src="images/yc/Refinement Example.png" alt="Founder School Diploma ERD" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <ul>
+    <li>A <strong>FOUNDER</strong> can earn <strong>one or many DIPLOMAs</strong>.</li>
+    <li>A <strong>SCHOOL</strong> can issue <strong>many DIPLOMAs</strong> to different founders.</li>
+    <li>Each <strong>DIPLOMA</strong> is associated with <strong>exactly one SCHOOL</strong> and <strong>exactly one FOUNDER</strong>.</li>
+  </ul>
+
+  <h2>🧱 Stage 2: Design a Logical Data Model</h2>
+  <p>This relational schema shows how each entity was mapped into SQL tables, including attributes, data types, and primary/foreign key constraints. It reflects how the conceptual design was translated into an implementable database structure.</p>
+  <p>This stage transforms the conceptual model into a relational schema that can be implemented in SQL. Primary keys and foreign key relationships are defined to enforce referential integrity.</p>
+  
+  <h4>Normalization: Full Functional Dependencies</h4>
+  <img src="images/yc/founder_As-is Dependency .png" alt="Founder Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/regions_As-is Dependency .png" alt="Region Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/industry_As-is Dependency .png" alt="Industry Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/company_experience_ As-is Dependency .png" alt="Company Experience Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/school_As-is Dependency .png" alt="School Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/company_ As-is Dependency .png" alt="Company Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+
+
+  <h2>💡 Stage 3:Insights from SQL analysis</h2>
+  <h3>💡 Insights Summary</h3>
+  <ul>
+    <li><strong>Company Status:</strong> 71% are active, 12% acquired, &lt;1% public, 17% inactive — showing YC’s strong portfolio health.</li>
+    <li><strong>Top Industries:</strong> Consumer, Fintech, and Healthcare lead in activity. Product &amp; Design and AI are the top sub-industries.</li>
+    <li><strong>Education:</strong> Most successful founders come from Stanford, MIT, UC Berkeley, Y Combinator programs, and University of Waterloo.</li>
+    <li><strong>Regions:</strong> U.S. dominates, but India, UK, and Canada are rising. 58 remote companies reflect a shift to flexible models.</li>
+    <li><strong>Founder Experience:</strong> Many founders previously worked at Google, Meta, Microsoft, Amazon, Apple, or came from firms like McKinsey and Goldman Sachs.</li>
+  </ul>
 
   <h2>🧰 Tech Stack</h2>
-  <p>[Mention libraries, tools, languages...]</p>
-
+  <ul>
+    <li><strong>SQL (MySQL)</strong>: Used for creating schema, inserting data, and querying insights.</li>
+    <li><strong>MySQL Workbench</strong>: Utilized for visualizing schema and generating ER diagrams.</li>
+    <li><strong>draw.io</strong>: Used to design the conceptual ER diagram and refinement diagrams.</li>
+    <li><strong>Microsoft Excel</strong>: Performed data cleaning, normalization, and metadata preparation.</li>
+    <li><strong>VS Code</strong>: Development environment for writing and formatting SQL queries.</li>
+  </ul>
+  
   <h2>📎 Attachment</h2>
-  <p>[Link to GitHub, Tableau dashboard, or PDF report...]</p>
+  <h3>📄 SQL Queries Used in Analysis</h3>
+  <details>
+    <summary>Click to view all SQL queries</summary>
+    <pre style="white-space: pre-wrap; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; overflow-x: auto; font-family: monospace;">
+-- Query 1: Company Status Distribution
+SELECT
+  Status,
+  COUNT(*) AS Count,
+  ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM YCombinator.companies), 0) AS Percentage
+FROM YCombinator.companies
+GROUP BY Status
+ORDER BY Count DESC;
 
+-- Query 2: Top Industries by Active Companies
+SELECT Industry, COUNT(companies.Company_ID) AS NoofCompanies
+FROM my_schema3.companies
+LEFT JOIN my_schema3.industries
+ON companies.Company_ID = industries.Company_ID
+WHERE Status <> "Inactive"
+GROUP BY Industry
+ORDER BY NoofCompanies DESC
+LIMIT 5;
+
+-- Query 3: Top Sub-Industries by Active Companies
+SELECT Sub_Industry, COUNT(companies.Company_ID) AS NoofCompanies
+FROM my_schema3.companies
+LEFT JOIN my_schema3.industries
+ON companies.Company_ID = industries.Company_ID
+WHERE Status <> "Inactive"
+GROUP BY Sub_Industry
+HAVING Sub_Industry <> ""
+ORDER BY NoofCompanies DESC
+LIMIT 5;
+
+-- Query 4: Top Schools of Founders (Non-Inactive Companies)
+SELECT school, COUNT(school) AS cschool
+FROM (
+  SELECT school.HN_ID, school.School
+  FROM school
+  JOIN (
+    SELECT companies.Company_ID, founders.HN_ID, companies.Slug, companies.Status, founders.First_Name, founders.Last_Name
+    FROM companies
+    RIGHT JOIN founders ON companies.Slug = founders.Company_Slug
+    WHERE companies.Status <> 'Inactive'
+    ORDER BY companies.Company_ID
+  ) AS founder_noninactive_t ON school.HN_ID = founder_noninactive_t.HN_ID
+  ORDER BY HN_ID
+) AS noninactive_school_t
+GROUP BY school
+ORDER BY cschool DESC
+LIMIT 5;
+
+-- Query 5: Top Regions and Countries with Active Companies
+SELECT
+  CASE
+    WHEN region.Region IS NULL OR region.Region = '' THEN 'Unknown'
+    ELSE region.Region
+  END AS Region,
+  CASE
+    WHEN region.Country IS NULL OR region.Country = '' THEN 'Unknown'
+    ELSE region.Country
+  END AS Country,
+  COUNT(companies.Company_ID) AS Num_Companies
+FROM final_project_schema.region
+LEFT JOIN final_project_schema.companies
+ON region.Company_ID = companies.Company_ID
+WHERE companies.Status <> "Inactive"
+GROUP BY Region, Country
+ORDER BY Num_Companies DESC
+LIMIT 10;
+
+-- Query 6: Top Company Experience Backgrounds Among Founders
+SELECT company_experience.Company, COUNT(founders.HN_ID) AS Num_Founders
+FROM company_experience
+JOIN founders ON company_experience.HN_ID = founders.HN_ID
+JOIN (
+  SELECT companies.Company_ID, companies.Slug
+  FROM companies
+  WHERE companies.Status <> 'Inactive'
+) AS active_companies ON founders.Company_Slug = active_companies.Slug
+GROUP BY company_experience.Company
+ORDER BY Num_Founders DESC
+LIMIT 10;
+    </pre>
+  </details>
+  
   <a class="back-home" href="index.html">← Back to Home</a>
 </body>
 </html>
