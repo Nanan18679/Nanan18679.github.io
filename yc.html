@@ -52,6 +52,8 @@
     <li><strong>Large Tech Companies</strong> looking for acquisitions could use the database to discover potential targets based on location, industry, or team composition.</li>
   </ul>
 
+  <h2>📂 Data Source</h2>
+  <p>The data for this project was sourced from the publicly available Kaggle dataset titled <a href="https://www.kaggle.com/datasets/sashakorovkina/ycombinator-all-funded-companies-dataset" target="_blank">YCombinator: All Funded Companies</a>. The dataset contains detailed information about companies funded by Y Combinator including founders, industries, regions, and prior experience.</p>
   <h2>🧱 Stage 1: Design a Conceptual Data Model</h2>
 
   <h3>Entity Identification & Overview</h3>
@@ -61,27 +63,27 @@
   <p>Metadata was developed at both the entity and attribute level. Each table contains details such as attribute names, data types, allowed values, and example entries. This ensures data integrity, consistency, and clarity for SQL querying.</p>
 
   <h4>Entity-Level Metadata</h4>
-  <img src="images/yc/Entity-level Metadata.png" alt="Entity-level Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/entity_level_metadata.png" alt="Entity-level Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
 
   <h4>Attribute-Level Metadata</h4>
   <h5>COMPANY</h5>
-  <img src="images/yc/COMPANY_Attribute-level Metadata.png" alt="Company Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/company_attribute_metadata.png" alt="Company Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>FOUNDER</h5>
-  <img src="images/yc/FOUNDER_Attribute-level Metadata.png" alt="Founder Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/founder_attribute_metadata.png" alt="Founder Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>REGIONS</h5>
-  <img src="images/yc/REGIONS_Attribute-level Metadata.png" alt="Regions Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/regions_attribute_metadata.png" alt="Regions Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>INDUSTRY</h5>
-  <img src="images/yc/INDUSTRIES_Attribute-level Metadata,png.png" alt="Industries Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/industries_attribute_metadata.png" alt="Industries Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>COMPANY_EXPERIENCE</h5>
-  <img src="images/yc/COMPANIES_EXPERIENCE_Attribute-level Metadata.png" alt="Companies Experience Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/company_experience_attribute_metadata.png" alt="Companies Experience Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>SCHOOLS</h5>
-  <img src="images/yc/SCHOOLS_Attribute-level Metadata.png" alt="Schools Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/schools_attribute_metadata.png" alt="Schools Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
 
   <h3>Entity Relationships & Business Rules</h3>
   <p>Relationships were mapped based on logical connections between entities. For example, a FOUNDER can attend many SCHOOLS, and each COMPANY belongs to one INDUSTRY. The business rules were formalized to reflect cardinality and data dependencies.</p>
 
   <h4>ER Diagram & Relationship Matrix</h4>
-  <img src="images/yc/ERD_and_Relationship.png" alt="ER Diagram and Relationships" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/erd_and_relationship.png" alt="ER Diagram and Relationships" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
   
   <h4>Business Rules</h4>
   <ul>
@@ -93,7 +95,7 @@
   
   <h4>💡 Relationship Refinement Example: FOUNDER & SCHOOL via DIPLOMA</h4>
   <p>Originally, a many-to-many relationship existed between <strong>FOUNDER</strong> and <strong>SCHOOL</strong>. To normalize this relationship and better capture attributes such as degree type, a bridge entity <strong>DIPLOMA</strong> was introduced.</p>
-  <img src="images/yc/Refinement Example.png" alt="Founder School Diploma ERD" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/refinement_example.png" alt="Founder School Diploma ERD" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
   <ul>
     <li>A <strong>FOUNDER</strong> can earn <strong>one or many DIPLOMAs</strong>.</li>
     <li>A <strong>SCHOOL</strong> can issue <strong>many DIPLOMAs</strong> to different founders.</li>
@@ -105,12 +107,12 @@
   <p>This stage transforms the conceptual model into a relational schema that can be implemented in SQL. Primary keys and foreign key relationships are defined to enforce referential integrity.</p>
   
   <h4>Normalization: Full Functional Dependencies</h4>
-  <img src="images/yc/founder_As-is Dependency .png" alt="Founder Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
-  <img src="images/yc/regions_As-is Dependency .png" alt="Region Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
-  <img src="images/yc/industry_As-is Dependency .png" alt="Industry Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
-  <img src="images/yc/company_experience_ As-is Dependency .png" alt="Company Experience Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
-  <img src="images/yc/school_As-is Dependency .png" alt="School Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
-  <img src="images/yc/company_ As-is Dependency .png" alt="Company Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/founder_dependency.png" alt="Founder Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/regions_dependency.png" alt="Region Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/industry_dependency.png" alt="Industry Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/company_experience_dependency.png" alt="Company Experience Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/school_dependency.png" alt="School Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/company_dependency.png" alt="Company Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
 
 
   <h2>💡 Stage 3:Insights from SQL analysis</h2>
@@ -136,7 +138,7 @@
   <h3>📄 SQL Queries Used in Analysis</h3>
   <details>
     <summary>Click to view all SQL queries</summary>
-    <pre style="white-space: pre-wrap; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; overflow-x: auto; font-family: monospace;">
+    <pre style="white-space: pre-wrap; background-color: #f9f9f9; border: 1px solid #ccc; padding: 10px; overflow-x: auto; font-family: 'Courier New', Courier, monospace; font-size: 14px;">
 -- Query 1: Company Status Distribution
 SELECT
   Status,
