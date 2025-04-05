@@ -63,27 +63,27 @@
   <p>Metadata was developed at both the entity and attribute level. Each table contains details such as attribute names, data types, allowed values, and example entries. This ensures data integrity, consistency, and clarity for SQL querying.</p>
 
   <h4>Entity-Level Metadata</h4>
-  <img src="images/yc/entity_level_metadata.png" alt="Entity-level Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/entity_level_metadata.png" alt="Entity Level Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
 
   <h4>Attribute-Level Metadata</h4>
   <h5>COMPANY</h5>
-  <img src="images/yc/company_attribute_metadata.png" alt="Company Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/company_attribute_metadata.png" alt="Company Attribute Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>FOUNDER</h5>
-  <img src="images/yc/founder_attribute_metadata.png" alt="Founder Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/founder_attribute_metadata.png" alt="Founder Attribute Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>REGIONS</h5>
-  <img src="images/yc/regions_attribute_metadata.png" alt="Regions Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/regions_attribute_metadata.png" alt="Regions Attribute Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>INDUSTRY</h5>
-  <img src="images/yc/industries_attribute_metadata.png" alt="Industries Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/industries_attribute_metadata.png" alt="Industries Attribute Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>COMPANY_EXPERIENCE</h5>
-  <img src="images/yc/company_experience_attribute_metadata.png" alt="Companies Experience Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/company_experience_attribute_metadata.png" alt="Company Experience Attribute Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
   <h5>SCHOOLS</h5>
-  <img src="images/yc/schools_attribute_metadata.png" alt="Schools Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/schools_attribute_metadata.png" alt="Schools Attribute Metadata" style="width:100%; max-width:800px; margin-bottom:20px; border:1px solid #ccc;">
 
   <h3>Entity Relationships & Business Rules</h3>
   <p>Relationships were mapped based on logical connections between entities. For example, a FOUNDER can attend many SCHOOLS, and each COMPANY belongs to one INDUSTRY. The business rules were formalized to reflect cardinality and data dependencies.</p>
 
   <h4>ER Diagram & Relationship Matrix</h4>
-  <img src="images/yc/erd_and_relationship.png" alt="ER Diagram and Relationships" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/erd_and_relationship.png" alt="ERD and Relationship" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
   
   <h4>Business Rules</h4>
   <ul>
@@ -95,7 +95,7 @@
   
   <h4>💡 Relationship Refinement Example: FOUNDER & SCHOOL via DIPLOMA</h4>
   <p>Originally, a many-to-many relationship existed between <strong>FOUNDER</strong> and <strong>SCHOOL</strong>. To normalize this relationship and better capture attributes such as degree type, a bridge entity <strong>DIPLOMA</strong> was introduced.</p>
-  <img src="images/yc/refinement_example.png" alt="Founder School Diploma ERD" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/refinement_example.png" alt="Refinement Example" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
   <ul>
     <li>A <strong>FOUNDER</strong> can earn <strong>one or many DIPLOMAs</strong>.</li>
     <li>A <strong>SCHOOL</strong> can issue <strong>many DIPLOMAs</strong> to different founders.</li>
@@ -108,7 +108,7 @@
   
   <h4>Normalization: Full Functional Dependencies</h4>
   <img src="images/yc/founder_dependency.png" alt="Founder Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
-  <img src="images/yc/regions_dependency.png" alt="Region Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
+  <img src="images/yc/regions_dependency.png" alt="Regions Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
   <img src="images/yc/industry_dependency.png" alt="Industry Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
   <img src="images/yc/company_experience_dependency.png" alt="Company Experience Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
   <img src="images/yc/school_dependency.png" alt="School Dependency" style="width:100%; max-width:850px; margin-bottom:20px; border:1px solid #ccc;">
